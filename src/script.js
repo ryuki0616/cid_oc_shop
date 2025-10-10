@@ -138,7 +138,7 @@ let products = [
         category: 'electronics',
         price: 6900,
         description: '防水仕様で屋外でも安心。重低音サウンドを楽しめる高性能スピーカー。',
-        image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=400&fit=crop',
+        image: 'https://images.unsplash.com/photo-1589492477829-5e65395b66cc?w=400&h=400&fit=crop',
         badge: 'POPULAR'
     },
     {
@@ -220,7 +220,7 @@ let products = [
         category: 'home',
         price: 4500,
         description: '天然素材使用の3種類セット。癒しの香りで心地よい空間を。',
-        image: 'https://images.unsplash.com/photo-1602874801006-94c3992b7bd7?w=400&h=400&fit=crop',
+        image: 'https://images.unsplash.com/photo-1510380410676-6c5dcbcf954e?w=400&h=400&fit=crop',
         badge: 'POPULAR'
     },
     {
@@ -254,7 +254,7 @@ let products = [
         category: 'sports',
         price: 2200,
         description: '速乾性抜群で持ち運びに便利。ジムやアウトドアに最適。',
-        image: 'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&h=400&fit=crop'
+        image: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop'
     }
 ];
 
