@@ -21,6 +21,12 @@
 let currentPage = 'home';
 
 /**
+ * 現在の決済ステップ
+ * @type {number}
+ */
+let currentCheckoutStep = 1;
+
+/**
  * カートアイテムを保存する配列
  * @type {Array<Object>}
  */
@@ -957,11 +963,265 @@ function setupEventListeners() {
         }
     });
     
+    // レジに進むボタン
+    const proceedToCheckoutBtn = document.getElementById('proceedToCheckout');
+    if (proceedToCheckoutBtn) {
+        proceedToCheckoutBtn.addEventListener('click', () => {
+            // カートが空でないかチェック
+            if (cart.length === 0) {
+                alert('カートに商品がありません。');
+                return;
+            }
+            // 決済ページに移動
+            closeCartModal();
+            switchPage('checkout');
+            // 決済サマリーを更新
+            updateCheckoutSummary();
+        });
+    }
+    
     // ページ読み込み時にURLハッシュをチェック
     const initialHash = window.location.hash.substring(1);
     if (initialHash && initialHash !== 'home') {
         switchPage(initialHash);
     }
+}
+
+// ============================================
+// 決済機能
+// ============================================
+
+/**
+ * 決済ステップを切り替える関数
+ * 
+ * 機能：
+ * - 3つのステップ間を移動（配送先→支払い→確認）
+ * - フォームのバリデーションチェック
+ * - ステップインジケーターの更新
+ * - 確認画面の情報表示
+ * 
+ * @param {number} stepNumber - 移動先のステップ番号（1:配送先, 2:支払い, 3:確認）
+ * 
+ * 処理フロー：
+ * 1. 現在のステップから次に進む場合、入力内容をバリデーション
+ * 2. 全ステップを一旦非表示
+ * 3. 指定されたステップを表示
+ * 4. ステップインジケーターを更新（視覚的に進行状況を表示）
+ * 5. ステップ3の場合は入力内容を確認画面に表示
+ */
+function nextCheckoutStep(stepNumber) {
+    // ========== バリデーションチェック ==========
+    // ステップ1（配送先情報）から次に進む場合
+    if (currentCheckoutStep === 1 && stepNumber > 1) {
+        const shippingForm = document.getElementById('shippingForm');
+        // HTML5のフォームバリデーションをチェック
+        if (!shippingForm.checkValidity()) {
+            // エラーがある場合、ブラウザのエラーメッセージを表示
+            shippingForm.reportValidity();
+            return; // 処理を中断
+        }
+    }
+    
+    // ========== ステップ切り替え ==========
+    // 全てのステップコンテンツを非表示にする
+    for (let i = 1; i <= 3; i++) {
+        const stepContent = document.getElementById(`checkout-step-${i}`);
+        if (stepContent) {
+            stepContent.style.display = 'none';
+        }
+    }
+    
+    // 指定されたステップのみ表示
+    const targetStep = document.getElementById(`checkout-step-${stepNumber}`);
+    if (targetStep) {
+        targetStep.style.display = 'block';
+        // 現在のステップ番号を更新
+        currentCheckoutStep = stepNumber;
+        
+        // ステップインジケーターを更新（1→2→3の進行状況表示）
+        updateStepIndicator(stepNumber);
+        
+        // ステップ3（確認画面）の場合、入力内容を表示
+        if (stepNumber === 3) {
+            displayConfirmation();
+        }
+    }
+}
+
+/**
+ * ステップインジケーターを更新
+ * 
+ * @param {number} activeStep - アクティブなステップ番号
+ */
+function updateStepIndicator(activeStep) {
+    const steps = document.querySelectorAll('.step');
+    steps.forEach((step, index) => {
+        const stepNum = index + 1;
+        if (stepNum < activeStep) {
+            step.classList.add('completed');
+            step.classList.remove('active');
+        } else if (stepNum === activeStep) {
+            step.classList.add('active');
+            step.classList.remove('completed');
+        } else {
+            step.classList.remove('active', 'completed');
+        }
+    });
+}
+
+/**
+ * 決済サマリーを更新
+ * 
+ * 機能：
+ * - 決済ページ右側のサマリーエリアを更新
+ * - カート内商品の一覧表示
+ * - 小計、配送料、合計金額を計算して表示
+ * - 送料無料条件（5,000円以上）の判定
+ * 
+ * 表示内容：
+ * - 各商品の画像、名前、数量、価格
+ * - 小計（商品代金の合計）
+ * - 配送料（5,000円未満は500円、以上は無料）
+ * - 合計金額
+ */
+function updateCheckoutSummary() {
+    const summaryItems = document.getElementById('checkoutSummaryItems');
+    
+    // ========== 商品リスト表示 ==========
+    // カート内の各商品をサマリー形式でHTML生成
+    summaryItems.innerHTML = cart.map(item => `
+        <div class="summary-item">
+            <!-- 商品サムネイル画像 -->
+            <img src="${item.image}" alt="${item.name}" class="summary-item-image">
+            <div class="summary-item-info">
+                <!-- 商品名 -->
+                <div class="summary-item-name">${item.name}</div>
+                <!-- 数量と価格 -->
+                <div class="summary-item-details">
+                    数量: ${item.quantity} × ¥${item.price.toLocaleString()}
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    // ========== 金額計算 ==========
+    // 小計：全商品の（価格 × 数量）の合計
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    // 配送料：5,000円以上なら無料、未満なら500円
+    const shipping = subtotal >= 5000 ? 0 : 500;
+    // 合計：小計 + 配送料
+    const total = subtotal + shipping;
+    
+    // ========== サマリー表示更新 ==========
+    document.getElementById('summarySubtotal').textContent = `¥${subtotal.toLocaleString()}`;
+    document.getElementById('summaryShipping').textContent = shipping === 0 ? '無料' : `¥${shipping.toLocaleString()}`;
+    document.getElementById('summaryTotal').textContent = `¥${total.toLocaleString()}`;
+}
+
+/**
+ * 確認情報を表示
+ * 
+ * 機能：
+ * - ステップ1、2で入力した情報を確認画面に表示
+ * - 配送先情報を整形して表示
+ * - 選択した支払い方法を表示
+ * 
+ * 処理：
+ * 1. フォームから入力値を取得
+ * 2. HTMLに整形
+ * 3. 確認画面のエリアに表示
+ */
+function displayConfirmation() {
+    // ========== 配送先情報の表示 ==========
+    // 各入力フィールドの値を取得してHTML生成
+    const shippingInfo = `
+        <p><strong>氏名：</strong>${document.getElementById('checkoutName').value}</p>
+        <p><strong>氏名（カナ）：</strong>${document.getElementById('checkoutNameKana').value}</p>
+        <p><strong>郵便番号：</strong>${document.getElementById('checkoutPostal').value}</p>
+        <p><strong>都道府県：</strong>${document.getElementById('checkoutPrefecture').value}</p>
+        <p><strong>住所：</strong>${document.getElementById('checkoutAddress').value}</p>
+        ${document.getElementById('checkoutBuilding').value ? `<p><strong>建物名：</strong>${document.getElementById('checkoutBuilding').value}</p>` : ''}
+        <p><strong>電話番号：</strong>${document.getElementById('checkoutPhone').value}</p>
+        <p><strong>メールアドレス：</strong>${document.getElementById('checkoutEmail').value}</p>
+    `;
+    // 配送先確認エリアに表示
+    document.getElementById('confirmShipping').innerHTML = shippingInfo;
+    
+    // ========== 支払い方法の表示 ==========
+    // 選択されたラジオボタンの値を取得
+    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+    // 値を日本語名に変換
+    const paymentNames = {
+        'credit': 'クレジットカード',
+        'bank': '銀行振込',
+        'convenience': 'コンビニ決済',
+        'cod': '代金引換'
+    };
+    // 支払い方法確認エリアに表示
+    document.getElementById('confirmPayment').innerHTML = `<p>${paymentNames[paymentMethod]}</p>`;
+}
+
+/**
+ * 注文を確定する
+ * 
+ * 機能：
+ * - 入力された全情報を注文データとして保存
+ * - 注文完了メッセージを表示
+ * - カートをクリア
+ * - ホームページに戻る
+ * 
+ * 処理フロー：
+ * 1. 注文データオブジェクトを作成
+ * 2. コンソールに出力（デモ用：実際はサーバーに送信）
+ * 3. 完了メッセージを表示
+ * 4. カートを空にする
+ * 5. ホームページに戻る
+ * 6. 決済ステップをリセット
+ * 
+ * 注意：
+ * これはデモ実装です。実際の運用では、
+ * サーバーにデータを送信し、決済処理を行います。
+ */
+function submitOrder() {
+    // ========== 注文データの作成 ==========
+    const orderData = {
+        // 顧客情報
+        customer: {
+            name: document.getElementById('checkoutName').value,
+            nameKana: document.getElementById('checkoutNameKana').value,
+            postal: document.getElementById('checkoutPostal').value,
+            prefecture: document.getElementById('checkoutPrefecture').value,
+            address: document.getElementById('checkoutAddress').value,
+            building: document.getElementById('checkoutBuilding').value,
+            phone: document.getElementById('checkoutPhone').value,
+            email: document.getElementById('checkoutEmail').value
+        },
+        // 支払い方法
+        paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
+        // 注文商品
+        items: cart,
+        // 注文日時（ISO 8601形式）
+        timestamp: new Date().toISOString()
+    };
+    
+    // ========== デモ用：コンソールに出力 ==========
+    // 実際の実装では、ここでサーバーにPOSTリクエストを送信
+    console.log('📦 注文確定:', orderData);
+    
+    // ========== 注文完了メッセージ ==========
+    alert('ご注文ありがとうございます！\n\nご注文を受け付けました。\n確認メールをお送りいたしますので、しばらくお待ちください。');
+    
+    // ========== カートをクリア ==========
+    cart = [];
+    updateCartUI();
+    saveCartToStorage();
+    
+    // ========== ホームページに戻る ==========
+    switchPage('home');
+    
+    // ========== 決済ステップをリセット ==========
+    currentCheckoutStep = 1;
+    nextCheckoutStep(1);
 }
 
 // ============================================

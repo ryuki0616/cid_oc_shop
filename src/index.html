@@ -513,6 +513,205 @@
                 </div>
             </div>
         </section>
+
+        <!-- ============================================
+             決済ページ
+             ============================================ -->
+        <section class="page" id="page-checkout" style="display: none;">
+            <div class="checkout-page">
+                <div class="container">
+                    <!-- ページヘッダー -->
+                    <div class="page-header">
+                        <h2 class="section-title">お支払い・配送情報</h2>
+                        <p class="page-subtitle">ご注文内容をご確認の上、配送先情報と決済方法を入力してください。</p>
+                    </div>
+
+                    <!-- 決済コンテンツ -->
+                    <div class="checkout-content">
+                        <!-- 左側：フォーム -->
+                        <div class="checkout-forms">
+                            <!-- ステップインジケーター -->
+                            <div class="checkout-steps">
+                                <div class="step active" data-step="1">
+                                    <span class="step-number">1</span>
+                                    <span class="step-label">配送先情報</span>
+                                </div>
+                                <div class="step" data-step="2">
+                                    <span class="step-number">2</span>
+                                    <span class="step-label">支払い方法</span>
+                                </div>
+                                <div class="step" data-step="3">
+                                    <span class="step-number">3</span>
+                                    <span class="step-label">確認</span>
+                                </div>
+                            </div>
+
+                            <!-- ステップ1: 配送先情報 -->
+                            <div class="checkout-step-content" id="checkout-step-1">
+                                <h3>配送先情報</h3>
+                                <form id="shippingForm">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="checkoutName">お名前 <span class="required">*</span></label>
+                                            <input type="text" id="checkoutName" class="form-input" placeholder="山田 太郎" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="checkoutNameKana">お名前（カナ） <span class="required">*</span></label>
+                                            <input type="text" id="checkoutNameKana" class="form-input" placeholder="ヤマダ タロウ" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="checkoutPostal">郵便番号 <span class="required">*</span></label>
+                                            <input type="text" id="checkoutPostal" class="form-input" placeholder="123-4567" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="checkoutPrefecture">都道府県 <span class="required">*</span></label>
+                                            <select id="checkoutPrefecture" class="form-select" required>
+                                                <option value="">選択してください</option>
+                                                <option value="東京都">東京都</option>
+                                                <option value="神奈川県">神奈川県</option>
+                                                <option value="埼玉県">埼玉県</option>
+                                                <option value="千葉県">千葉県</option>
+                                                <option value="その他">その他</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="checkoutAddress">住所 <span class="required">*</span></label>
+                                        <input type="text" id="checkoutAddress" class="form-input" placeholder="市区町村番地" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="checkoutBuilding">建物名・部屋番号</label>
+                                        <input type="text" id="checkoutBuilding" class="form-input" placeholder="マンション名 101号室">
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="checkoutPhone">電話番号 <span class="required">*</span></label>
+                                            <input type="tel" id="checkoutPhone" class="form-input" placeholder="090-1234-5678" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="checkoutEmail">メールアドレス <span class="required">*</span></label>
+                                            <input type="email" id="checkoutEmail" class="form-input" placeholder="example@email.com" required>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="checkout-next-button" onclick="nextCheckoutStep(2)">支払い方法へ進む</button>
+                                </form>
+                            </div>
+
+                            <!-- ステップ2: 支払い方法 -->
+                            <div class="checkout-step-content" id="checkout-step-2" style="display: none;">
+                                <h3>お支払い方法</h3>
+                                <div class="payment-methods">
+                                    <label class="payment-method">
+                                        <input type="radio" name="paymentMethod" value="credit" checked>
+                                        <div class="payment-method-content">
+                                            <span class="payment-icon">💳</span>
+                                            <div>
+                                                <strong>クレジットカード</strong>
+                                                <p>VISA / MasterCard / JCB / AMEX</p>
+                                            </div>
+                                        </div>
+                                    </label>
+
+                                    <label class="payment-method">
+                                        <input type="radio" name="paymentMethod" value="bank">
+                                        <div class="payment-method-content">
+                                            <span class="payment-icon">🏦</span>
+                                            <div>
+                                                <strong>銀行振込</strong>
+                                                <p>ご注文後、振込先をメールでお知らせします</p>
+                                            </div>
+                                        </div>
+                                    </label>
+
+                                    <label class="payment-method">
+                                        <input type="radio" name="paymentMethod" value="convenience">
+                                        <div class="payment-method-content">
+                                            <span class="payment-icon">🏪</span>
+                                            <div>
+                                                <strong>コンビニ決済</strong>
+                                                <p>セブン / ローソン / ファミマ</p>
+                                            </div>
+                                        </div>
+                                    </label>
+
+                                    <label class="payment-method">
+                                        <input type="radio" name="paymentMethod" value="cod">
+                                        <div class="payment-method-content">
+                                            <span class="payment-icon">📦</span>
+                                            <div>
+                                                <strong>代金引換</strong>
+                                                <p>商品受け取り時にお支払い（手数料330円）</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div class="checkout-buttons">
+                                    <button type="button" class="checkout-back-button" onclick="nextCheckoutStep(1)">戻る</button>
+                                    <button type="button" class="checkout-next-button" onclick="nextCheckoutStep(3)">確認画面へ進む</button>
+                                </div>
+                            </div>
+
+                            <!-- ステップ3: 確認 -->
+                            <div class="checkout-step-content" id="checkout-step-3" style="display: none;">
+                                <h3>ご注文内容の確認</h3>
+                                
+                                <div class="checkout-confirm">
+                                    <div class="confirm-section">
+                                        <h4>配送先情報</h4>
+                                        <div id="confirmShipping" class="confirm-details"></div>
+                                    </div>
+
+                                    <div class="confirm-section">
+                                        <h4>お支払い方法</h4>
+                                        <div id="confirmPayment" class="confirm-details"></div>
+                                    </div>
+                                </div>
+
+                                <div class="checkout-buttons">
+                                    <button type="button" class="checkout-back-button" onclick="nextCheckoutStep(2)">戻る</button>
+                                    <button type="button" class="checkout-submit-button" onclick="submitOrder()">注文を確定する</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 右側：注文サマリー -->
+                        <div class="checkout-summary">
+                            <h3>ご注文内容</h3>
+                            <div class="summary-items" id="checkoutSummaryItems">
+                                <!-- JavaScriptで動的に生成 -->
+                            </div>
+
+                            <div class="summary-pricing">
+                                <div class="pricing-row">
+                                    <span>小計</span>
+                                    <span id="summarySubtotal">¥0</span>
+                                </div>
+                                <div class="pricing-row">
+                                    <span>配送料</span>
+                                    <span id="summaryShipping">¥0</span>
+                                </div>
+                                <div class="pricing-row total">
+                                    <span>合計</span>
+                                    <span id="summaryTotal">¥0</span>
+                                </div>
+                            </div>
+
+                            <div class="summary-note">
+                                <p>※ 5,000円以上のご注文で送料無料</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- ============================================
@@ -546,8 +745,8 @@
                     <span>合計:</span>
                     <span class="cart-total-price" id="cartTotal">¥0</span>
                 </div>
-                <!-- レジに進むボタン -->
-                <button class="checkout-button">レジに進む</button>
+                <!-- レジに進むボタン：クリックで決済ページへ移動 -->
+                <button class="checkout-button" id="proceedToCheckout">レジに進む</button>
             </div>
         </div>
     </div>
