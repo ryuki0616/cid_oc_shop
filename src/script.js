@@ -33,6 +33,12 @@ let currentCheckoutStep = 1;
 let cart = [];
 
 /**
+ * 注文履歴を保存する配列
+ * @type {Array<Object>}
+ */
+let orderHistory = [];
+
+/**
  * 商品データ配列
  * @type {Array<Object>}
  */
@@ -304,6 +310,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. カートをローカルストレージから読み込み
     // 前回の訪問時にカートに入れた商品を復元
     loadCartFromStorage();
+    
+    // 2-2. 注文履歴をローカルストレージから読み込み
+    loadOrderHistory();
     
     // 3. イベントリスナーの設定
     // ボタンクリック、フィルター変更などのイベントを設定
@@ -818,6 +827,12 @@ function switchPage(pageName) {
         // ページトップにスムーズスクロール
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
+        // ページ固有の処理
+        if (pageName === 'orders') {
+            // 注文履歴ページの場合、履歴を表示
+            displayOrderHistory();
+        }
+        
         // モバイルメニューを閉じる
         const navMenu = document.querySelector('.nav-menu');
         const mobileMenuButton = document.getElementById('mobileMenuButton');
@@ -1204,12 +1219,22 @@ function submitOrder() {
         timestamp: new Date().toISOString()
     };
     
+    // ========== 注文番号を生成 ==========
+    // 注文番号：日時ベースのユニークID
+    const orderNumber = `ORD-${Date.now()}`;
+    orderData.orderNumber = orderNumber;
+    orderData.status = 'processing'; // 処理中
+    
+    // ========== 注文履歴に追加 ==========
+    orderHistory.unshift(orderData); // 配列の先頭に追加（新しい順）
+    saveOrderHistory(); // ローカルストレージに保存
+    
     // ========== デモ用：コンソールに出力 ==========
     // 実際の実装では、ここでサーバーにPOSTリクエストを送信
     console.log('📦 注文確定:', orderData);
     
     // ========== 注文完了メッセージ ==========
-    alert('ご注文ありがとうございます！\n\nご注文を受け付けました。\n確認メールをお送りいたしますので、しばらくお待ちください。');
+    alert(`ご注文ありがとうございます！\n\n注文番号：${orderNumber}\n\nご注文を受け付けました。\n確認メールをお送りいたしますので、しばらくお待ちください。`);
     
     // ========== カートをクリア ==========
     cart = [];
@@ -1222,6 +1247,185 @@ function submitOrder() {
     // ========== 決済ステップをリセット ==========
     currentCheckoutStep = 1;
     nextCheckoutStep(1);
+}
+
+// ============================================
+// 注文履歴機能
+// ============================================
+
+/**
+ * 注文履歴をローカルストレージに保存
+ * 
+ * 機能：
+ * - 注文履歴をブラウザに永続的に保存
+ * - ページをリロードしても履歴が残る
+ */
+function saveOrderHistory() {
+    // orderHistory配列をJSON文字列に変換して保存
+    localStorage.setItem('cidOcShopOrders', JSON.stringify(orderHistory));
+}
+
+/**
+ * 注文履歴をローカルストレージから読み込み
+ * 
+ * 機能：
+ * - 保存された注文履歴を復元
+ * - ページ読み込み時に実行
+ */
+function loadOrderHistory() {
+    const savedOrders = localStorage.getItem('cidOcShopOrders');
+    if (savedOrders) {
+        orderHistory = JSON.parse(savedOrders);
+    }
+}
+
+/**
+ * 注文履歴を表示
+ * 
+ * 機能：
+ * - 注文履歴ページに注文一覧を表示
+ * - 注文がない場合は空メッセージを表示
+ * - 各注文の詳細情報を表示
+ */
+function displayOrderHistory() {
+    const ordersContent = document.getElementById('ordersContent');
+    
+    // 注文履歴が空の場合
+    if (orderHistory.length === 0) {
+        ordersContent.innerHTML = `
+            <div class="orders-empty">
+                <div class="orders-empty-icon">📦</div>
+                <h3>注文履歴がありません</h3>
+                <p>まだ注文されていません。商品をカートに追加して注文してみましょう。</p>
+                <button class="orders-empty-button" onclick="switchPage('products')">商品を見る</button>
+            </div>
+        `;
+        return;
+    }
+    
+    // 注文履歴を表示
+    ordersContent.innerHTML = orderHistory.map((order, index) => {
+        const orderDate = new Date(order.timestamp);
+        const formattedDate = `${orderDate.getFullYear()}年${orderDate.getMonth() + 1}月${orderDate.getDate()}日 ${orderDate.getHours()}:${String(orderDate.getMinutes()).padStart(2, '0')}`;
+        
+        // 合計金額を計算
+        const subtotal = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const shipping = subtotal >= 5000 ? 0 : 500;
+        const total = subtotal + shipping;
+        
+        // ステータス表示名
+        const statusNames = {
+            'processing': '処理中',
+            'shipped': '発送済み',
+            'completed': '配達完了'
+        };
+        
+        // 支払い方法表示名
+        const paymentNames = {
+            'credit': 'クレジットカード',
+            'bank': '銀行振込',
+            'convenience': 'コンビニ決済',
+            'cod': '代金引換'
+        };
+        
+        return `
+            <div class="order-card">
+                <!-- 注文ヘッダー -->
+                <div class="order-header">
+                    <div class="order-header-left">
+                        <h3>注文番号: ${order.orderNumber}</h3>
+                        <p class="order-date">${formattedDate}</p>
+                    </div>
+                    <div class="order-header-right">
+                        <span class="order-status ${order.status}">${statusNames[order.status]}</span>
+                        <div class="order-total">¥${total.toLocaleString()}</div>
+                    </div>
+                </div>
+                
+                <!-- 注文商品リスト -->
+                <div class="order-items">
+                    ${order.items.map(item => `
+                        <div class="order-item">
+                            <img src="${item.image}" alt="${item.name}" class="order-item-image">
+                            <div class="order-item-info">
+                                <div class="order-item-name">${item.name}</div>
+                                <div class="order-item-details">数量: ${item.quantity}</div>
+                            </div>
+                            <div class="order-item-price">¥${(item.price * item.quantity).toLocaleString()}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <!-- 注文詳細情報 -->
+                <div class="order-details">
+                    <div class="order-detail-section">
+                        <h4>配送先</h4>
+                        <p>${order.customer.name}</p>
+                        <p>〒${order.customer.postal}</p>
+                        <p>${order.customer.prefecture} ${order.customer.address}</p>
+                        ${order.customer.building ? `<p>${order.customer.building}</p>` : ''}
+                        <p>電話: ${order.customer.phone}</p>
+                    </div>
+                    <div class="order-detail-section">
+                        <h4>お支払い</h4>
+                        <p>${paymentNames[order.paymentMethod]}</p>
+                        <p>小計: ¥${subtotal.toLocaleString()}</p>
+                        <p>配送料: ${shipping === 0 ? '無料' : `¥${shipping.toLocaleString()}`}</p>
+                        <p><strong>合計: ¥${total.toLocaleString()}</strong></p>
+                    </div>
+                </div>
+                
+                <!-- アクションボタン -->
+                <div class="order-actions">
+                    <button class="order-action-button order-reorder-button" onclick="reorder(${index})">同じ商品を再注文</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+/**
+ * 再注文機能
+ * 
+ * 機能：
+ * - 過去の注文と同じ商品をカートに追加
+ * - カートページを開く
+ * 
+ * @param {number} orderIndex - 注文履歴のインデックス
+ */
+function reorder(orderIndex) {
+    const order = orderHistory[orderIndex];
+    if (!order) return;
+    
+    // 注文商品をカートに追加
+    order.items.forEach(item => {
+        const existingItem = cart.find(cartItem => cartItem.id === item.id);
+        if (existingItem) {
+            // 既にカートにある場合は数量を追加
+            existingItem.quantity += item.quantity;
+        } else {
+            // 新規追加
+            cart.push({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                image: item.image,
+                category: item.category,
+                description: item.description,
+                quantity: item.quantity
+            });
+        }
+    });
+    
+    // UIを更新
+    updateCartUI();
+    saveCartToStorage();
+    
+    // カートモーダルを開く
+    openCartModal();
+    
+    // フィードバックメッセージ
+    alert('商品をカートに追加しました！');
 }
 
 // ============================================
