@@ -805,7 +805,282 @@ body {
 }
 
 /* ============================================
-   ショップについてモーダル（右スライド）
+   ページ切り替えシステム
+   ============================================ */
+
+/*
+ * ページコンテナ
+ * 各ページは.pageクラスで管理
+ */
+.page {
+    min-height: calc(100vh - 200px);  /* ヘッダーとフッター分を除く */
+    animation: fadeIn 0.4s ease;
+}
+
+/* ============================================
+   ホームページ専用スタイル
+   ============================================ */
+
+/*
+ * ホームページの特徴セクション
+ */
+.home-features {
+    padding: 4rem 0;
+    background-color: var(--color-white);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature-card {
+    background-color: var(--color-gray-lighter);
+    padding: 2.5rem 2rem;
+    border-radius: var(--radius-large);
+    text-align: center;
+    transition: var(--transition-medium);
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-large);
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.feature-card p {
+    color: var(--color-gray-medium);
+    line-height: 1.6;
+}
+
+.feature-card:hover p {
+    color: var(--color-gray-light);
+}
+
+/* ============================================
+   ショップについてページ
+   ============================================ */
+
+.about-page {
+    padding: 4rem 0;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.page-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-gray-medium);
+    margin-top: 1rem;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.concept-card {
+    background-color: var(--color-gray-lighter);
+    padding: 2.5rem;
+    border-radius: var(--radius-large);
+    transition: var(--transition-medium);
+}
+
+.concept-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-large);
+}
+
+.concept-icon {
+    width: 80px;
+    height: 80px;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.concept-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.concept-card p {
+    color: var(--color-gray-medium);
+    line-height: 1.8;
+}
+
+.about-stats-section {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: 3rem;
+    border-radius: var(--radius-large);
+    text-align: center;
+}
+
+.about-stats-section h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+/* ============================================
+   お問い合わせページ
+   ============================================ */
+
+.contact-page {
+    padding: 4rem 0;
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+/*
+ * お問い合わせフォーム
+ */
+.contact-form {
+    background-color: var(--color-gray-lighter);
+    padding: 2.5rem;
+    border-radius: var(--radius-large);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-black);
+}
+
+.required {
+    color: #e74c3c;
+    margin-left: 0.25rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--color-gray-dark);
+    border-radius: var(--radius-medium);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: var(--transition-fast);
+    background-color: var(--color-white);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--color-black);
+    box-shadow: var(--shadow-small);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-submit-button {
+    width: 100%;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius-medium);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.form-submit-button:hover {
+    background-color: var(--color-gray-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.form-submit-button:active {
+    transform: translateY(0);
+}
+
+/*
+ * お問い合わせ情報
+ */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-card {
+    background-color: var(--color-gray-lighter);
+    padding: 2rem;
+    border-radius: var(--radius-large);
+    text-align: center;
+}
+
+.info-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.info-card h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.info-card p {
+    color: var(--color-black);
+    font-weight: 500;
+}
+
+.info-hours {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--color-gray-medium);
+    margin-top: 0.5rem;
+}
+
+/* ============================================
+   ショップについてモーダル（削除予定）
    ============================================ */
 
 /*
@@ -1261,6 +1536,19 @@ body {
     .footer-content {
         grid-template-columns: 1fr;
         gap: 2rem;
+    }
+    
+    /* お問い合わせページ */
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-row {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 

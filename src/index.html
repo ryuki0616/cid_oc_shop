@@ -49,13 +49,13 @@
                 <!-- メインナビゲーションメニュー（デスクトップ用） -->
                 <ul class="nav-menu">
                    <!-- ホームリンク（現在アクティブ） -->
-                    <li><a href="#" class="nav-link active">ホーム</a></li>
-                    <!-- 商品一覧セクションへのリンク -->
-                    <li><a href="#products" class="nav-link">商品一覧</a></li>
-                    <!-- ショップについてのページリンク -->
-                    <li><a href="#about" class="nav-link">ショップについて</a></li>
-                    <!-- お問い合わせページリンク -->
-                    <li><a href="#contact" class="nav-link">お問い合わせ</a></li>
+                    <li><a href="#" class="nav-link active" data-page="home">ホーム</a></li>
+                    <!-- 商品一覧ページへのリンク -->
+                    <li><a href="#products" class="nav-link" data-page="products">商品一覧</a></li>
+                    <!-- ショップについてページへのリンク -->
+                    <li><a href="#about" class="nav-link" data-page="about">ショップについて</a></li>
+                    <!-- お問い合わせページへのリンク -->
+                    <li><a href="#contact" class="nav-link" data-page="contact">お問い合わせ</a></li>
                 </ul>
                 
                 <!-- ショッピングカートボ タン -->
@@ -87,67 +87,271 @@
     </header>
 
     <!-- ============================================
-         ヒーローセクション（メインビジュアル）
+         メインコンテンツエリア（ページ切り替え）
          ============================================ -->
-    <section class="hero">
-        <!-- ヒーローコンテンツ：タイトルとボタンを中央配置 -->
-        <div class="hero-content">
-            <!-- メインキャッチコピー -->
-            <h2 class="hero-title">新しいショッピング体験</h2>
-            <!-- サブコピー -->
-            <p class="hero-subtitle">モダンでスタイリッシュな商品を、シンプルに。</p>
-            <!-- CTAボタン：クリックで商品セクションへスムーズスクロール -->
-            <button class="hero-button" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">
-                商品を見る
-            </button>
-        </div>
-        <!-- 背景グラデーション効果（CSSアニメーション） -->
-        <div class="hero-gradient"></div>
-    </section>
+    <main class="main-content">
+        <!-- ============================================
+             ホームページ
+             ============================================ -->
+        <section class="page" id="page-home">
+            <!-- ヒーローセクション（メインビジュアル） -->
+            <div class="hero">
+                <!-- ヒーローコンテンツ：タイトルとボタンを中央配置 -->
+                <div class="hero-content">
+                    <!-- メインキャッチコピー -->
+                    <h2 class="hero-title">新しいショッピング体験</h2>
+                    <!-- サブコピー -->
+                    <p class="hero-subtitle">モダンでスタイリッシュな商品を、シンプルに。</p>
+                    <!-- CTAボタン：クリックで商品ページへ移動 -->
+                    <button class="hero-button" onclick="switchPage('products')">
+                        商品を見る
+                    </button>
+                </div>
+                <!-- 背景グラデーション効果（CSSアニメーション） -->
+                <div class="hero-gradient"></div>
+            </div>
 
-    <!-- ============================================
-         商品フィルターセクション
-         ============================================ -->
-    <section class="filter-section" id="products">
-        <div class="container">
-            <!-- フィルターヘッダー：タイトルとフィルターコントロール -->
-            <div class="filter-header">
-                <!-- セクションタイトル -->
-                <h2 class="section-title">商品一覧</h2>
-                <!-- フィルター＆ソートコントロール -->
-                <div class="filter-controls">
-                    <!-- カテゴリーフィルター：商品をカテゴリーで絞り込み -->
-                    <select class="filter-select" id="categoryFilter" aria-label="カテゴリーフィルター">
-                        <option value="all">全てのカテゴリー</option>
-                        <option value="electronics">電子機器</option>
-                        <option value="fashion">ファッション</option>
-                        <option value="home">ホーム＆リビング</option>
-                        <option value="sports">スポーツ</option>
-                    </select>
-                    <!-- ソートフィルター：商品の並び順を変更 -->
-                    <select class="filter-select" id="sortFilter" aria-label="並び替え">
-                        <option value="default">おすすめ順</option>
-                        <option value="price-low">価格の安い順</option>
-                        <option value="price-high">価格の高い順</option>
-                        <option value="name">名前順</option>
-                    </select>
+            <!-- ホームページの特徴セクション -->
+            <div class="home-features">
+                <div class="container">
+                    <h2 class="section-title">CID OC Shopの特徴</h2>
+                    <div class="features-grid">
+                        <!-- 特徴1 -->
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>厳選された商品</h3>
+                            <p>品質と機能性を兼ね備えた28以上の商品を取り揃えています</p>
+                        </div>
+                        <!-- 特徴2 -->
+                        <div class="feature-card">
+                            <div class="feature-icon">🚚</div>
+                            <h3>迅速な配送</h3>
+                            <p>ご注文から2-3営業日でお届け。送料無料キャンペーン実施中</p>
+                        </div>
+                        <!-- 特徴3 -->
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>安心の保証</h3>
+                            <p>30日間返品保証と安全な決済システムで安心してお買い物</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ============================================
-         商品グリッドセクション
-         ============================================ -->
-    <section class="products-section">
-        <div class="container">
-            <!-- 商品グリッド：JavaScriptで動的に商品カードを生成 -->
-            <!-- CSS Gridで自動的にレスポンシブレイアウトを実現 -->
-            <div class="products-grid" id="productsGrid">
-                <!-- 商品カードはscript.jsのdisplayProducts()関数で動的に生成されます -->
+        <!-- ============================================
+             商品一覧ページ
+             ============================================ -->
+        <section class="page" id="page-products" style="display: none;">
+            <!-- 商品フィルターセクション -->
+            <div class="filter-section">
+                <div class="container">
+                    <!-- フィルターヘッダー：タイトルとフィルターコントロール -->
+                    <div class="filter-header">
+                        <!-- セクションタイトル -->
+                        <h2 class="section-title">商品一覧</h2>
+                        <!-- フィルター＆ソートコントロール -->
+                        <div class="filter-controls">
+                            <!-- カテゴリーフィルター：商品をカテゴリーで絞り込み -->
+                            <select class="filter-select" id="categoryFilter" aria-label="カテゴリーフィルター">
+                                <option value="all">全てのカテゴリー</option>
+                                <option value="electronics">電子機器</option>
+                                <option value="fashion">ファッション</option>
+                                <option value="home">ホーム＆リビング</option>
+                                <option value="sports">スポーツ</option>
+                            </select>
+                            <!-- ソートフィルター：商品の並び順を変更 -->
+                            <select class="filter-select" id="sortFilter" aria-label="並び替え">
+                                <option value="default">おすすめ順</option>
+                                <option value="price-low">価格の安い順</option>
+                                <option value="price-high">価格の高い順</option>
+                                <option value="name">名前順</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+
+            <!-- 商品グリッドセクション -->
+            <div class="products-section">
+                <div class="container">
+                    <!-- 商品グリッド：JavaScriptで動的に商品カードを生成 -->
+                    <!-- CSS Gridで自動的にレスポンシブレイアウトを実現 -->
+                    <div class="products-grid" id="productsGrid">
+                        <!-- 商品カードはscript.jsのdisplayProducts()関数で動的に生成されます -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             ショップについてページ
+             ============================================ -->
+        <section class="page" id="page-about" style="display: none;">
+            <div class="about-page">
+                <div class="container">
+                    <!-- ページヘッダー -->
+                    <div class="page-header">
+                        <h2 class="section-title">ショップについて</h2>
+                        <p class="page-subtitle">モダンでスタイリッシュな商品を、シンプルに。</p>
+                    </div>
+
+                    <!-- ショップコンセプト -->
+                    <div class="about-content">
+                        <!-- コンセプトカード -->
+                        <div class="concept-card">
+                            <div class="concept-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 16v-4"></path>
+                                    <path d="M12 8h.01"></path>
+                                </svg>
+                            </div>
+                            <h3>私たちのビジョン</h3>
+                            <p>
+                                CID OC Shopは、シンプルさと機能性を兼ね備えた商品を提供することで、
+                                お客様の日常をより豊かにすることを目指しています。
+                                モダンなデザインと高品質な製品で、新しいライフスタイルを提案します。
+                            </p>
+                        </div>
+
+                        <div class="concept-card">
+                            <div class="concept-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <path d="M9 12l2 2 4-4"></path>
+                                </svg>
+                            </div>
+                            <h3>品質へのこだわり</h3>
+                            <p>
+                                全ての商品は厳選された素材を使用し、細部まで丁寧に作られています。
+                                品質管理を徹底し、長く愛用できる製品だけをお届けします。
+                                お客様の満足度が私たちの最優先事項です。
+                            </p>
+                        </div>
+
+                        <div class="concept-card">
+                            <div class="concept-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                            </div>
+                            <h3>お客様サポート</h3>
+                            <p>
+                                購入前のご相談から、アフターサービスまで、専門スタッフが丁寧にサポートいたします。
+                                ご不明な点がございましたら、お気軽にお問い合わせください。
+                                お客様の声を大切にしています。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 統計情報 -->
+                    <div class="about-stats-section">
+                        <h3>私たちの実績</h3>
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <div class="stat-number">28+</div>
+                                <div class="stat-label">厳選された商品</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">4</div>
+                                <div class="stat-label">カテゴリー</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">顧客満足度</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">2-3日</div>
+                                <div class="stat-label">平均配送日数</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             お問い合わせページ
+             ============================================ -->
+        <section class="page" id="page-contact" style="display: none;">
+            <div class="contact-page">
+                <div class="container">
+                    <!-- ページヘッダー -->
+                    <div class="page-header">
+                        <h2 class="section-title">お問い合わせ</h2>
+                        <p class="page-subtitle">ご質問やご要望がございましたら、お気軽にお問い合わせください。</p>
+                    </div>
+
+                    <!-- お問い合わせフォーム -->
+                    <div class="contact-content">
+                        <form class="contact-form" id="contactForm">
+                            <!-- 名前 -->
+                            <div class="form-group">
+                                <label for="contactName">お名前 <span class="required">*</span></label>
+                                <input type="text" id="contactName" name="name" class="form-input" placeholder="山田 太郎" required>
+                            </div>
+
+                            <!-- メールアドレス -->
+                            <div class="form-group">
+                                <label for="contactEmail">メールアドレス <span class="required">*</span></label>
+                                <input type="email" id="contactEmail" name="email" class="form-input" placeholder="example@email.com" required>
+                            </div>
+
+                            <!-- 電話番号 -->
+                            <div class="form-group">
+                                <label for="contactPhone">電話番号</label>
+                                <input type="tel" id="contactPhone" name="phone" class="form-input" placeholder="090-1234-5678">
+                            </div>
+
+                            <!-- お問い合わせ種類 -->
+                            <div class="form-group">
+                                <label for="contactType">お問い合わせ種類 <span class="required">*</span></label>
+                                <select id="contactType" name="type" class="form-select" required>
+                                    <option value="">選択してください</option>
+                                    <option value="product">商品について</option>
+                                    <option value="order">注文について</option>
+                                    <option value="delivery">配送について</option>
+                                    <option value="return">返品・交換について</option>
+                                    <option value="other">その他</option>
+                                </select>
+                            </div>
+
+                            <!-- メッセージ -->
+                            <div class="form-group">
+                                <label for="contactMessage">お問い合わせ内容 <span class="required">*</span></label>
+                                <textarea id="contactMessage" name="message" class="form-textarea" rows="6" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+                            </div>
+
+                            <!-- 送信ボタン -->
+                            <button type="submit" class="form-submit-button">送信する</button>
+                        </form>
+
+                        <!-- お問い合わせ情報 -->
+                        <div class="contact-info">
+                            <div class="info-card">
+                                <div class="info-icon">📧</div>
+                                <h4>メール</h4>
+                                <p>support@cidocshop.com</p>
+                            </div>
+                            <div class="info-card">
+                                <div class="info-icon">📞</div>
+                                <h4>電話</h4>
+                                <p>0120-XXX-XXX</p>
+                                <span class="info-hours">営業時間: 10:00-18:00（平日）</span>
+                            </div>
+                            <div class="info-card">
+                                <div class="info-icon">⏰</div>
+                                <h4>返信時間</h4>
+                                <p>24時間以内</p>
+                                <span class="info-hours">（営業日ベース）</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- ============================================
          ショッピングカートモーダル
@@ -205,140 +409,6 @@
             <div class="product-modal-body" id="productModalBody">
                 <!-- 商品詳細はscript.jsのshowProductDetail()関数で動的に生成されます -->
                 <!-- 商品画像、名前、価格、説明、カートに追加ボタンを含む -->
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================
-         ショップについてモーダル（右スライド）
-         ============================================ -->
-    <!-- モーダル背景：画面全体をオーバーレイ表示 -->
-    <div class="about-modal" id="aboutModal">
-        <!-- モーダルコンテンツ：右側からスライドイン -->
-        <div class="about-modal-content">
-            <!-- モーダルヘッダー：タイトルと閉じるボタン -->
-            <div class="about-modal-header">
-                <h3>ショップについて</h3>
-                <!-- 閉じるボタン：クリックでモーダルを閉じる -->
-                <button class="close-button" id="closeAboutButton" aria-label="閉じる">
-                    <!-- ×印アイコン（SVG） -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-            
-            <!-- モーダルボディ：スクロール可能 -->
-            <div class="about-modal-body">
-                <!-- セクション1：ショップ紹介 -->
-                <div class="about-section-intro">
-                    <p class="about-lead">モダンでスタイリッシュな商品を、シンプルに。</p>
-                </div>
-
-                <!-- セクション2：私たちのビジョン -->
-                <div class="about-section-item">
-                    <div class="about-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M12 16v-4"></path>
-                            <path d="M12 8h.01"></path>
-                        </svg>
-                    </div>
-                    <h4>私たちのビジョン</h4>
-                    <p>
-                        CID OC Shopは、シンプルさと機能性を兼ね備えた商品を提供することで、
-                        お客様の日常をより豊かにすることを目指しています。
-                        モダンなデザインと高品質な製品で、新しいライフスタイルを提案します。
-                    </p>
-                </div>
-
-                <!-- セクション3：品質へのこだわり -->
-                <div class="about-section-item">
-                    <div class="about-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            <path d="M9 12l2 2 4-4"></path>
-                        </svg>
-                    </div>
-                    <h4>品質へのこだわり</h4>
-                    <p>
-                        全ての商品は厳選された素材を使用し、細部まで丁寧に作られています。
-                        品質管理を徹底し、長く愛用できる製品だけをお届けします。
-                        お客様の満足度が私たちの最優先事項です。
-                    </p>
-                </div>
-
-                <!-- セクション4：お客様サポート -->
-                <div class="about-section-item">
-                    <div class="about-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </div>
-                    <h4>お客様サポート</h4>
-                    <p>
-                        購入前のご相談から、アフターサービスまで、専門スタッフが丁寧にサポートいたします。
-                        ご不明な点がございましたら、お気軽にお問い合わせください。
-                        お客様の声を大切にしています。
-                    </p>
-                </div>
-
-                <!-- セクション5：統計情報 -->
-                <div class="about-stats">
-                    <h4>私たちの実績</h4>
-                    <div class="stats-grid">
-                        <div class="stat-box">
-                            <div class="stat-number">28+</div>
-                            <div class="stat-label">厳選された商品</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-number">4</div>
-                            <div class="stat-label">カテゴリー</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-number">98%</div>
-                            <div class="stat-label">顧客満足度</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-number">2-3日</div>
-                            <div class="stat-label">平均配送日数</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- セクション6：私たちの約束 -->
-                <div class="about-promises">
-                    <h4>私たちの約束</h4>
-                    <div class="promise-item">
-                        <span class="promise-icon">✓</span>
-                        <div class="promise-text">
-                            <strong>送料無料</strong>
-                            <p>¥5,000以上のご注文で全国送料無料</p>
-                        </div>
-                    </div>
-                    <div class="promise-item">
-                        <span class="promise-icon">✓</span>
-                        <div class="promise-text">
-                            <strong>安心の返品保証</strong>
-                            <p>商品到着後30日以内なら返品可能</p>
-                        </div>
-                    </div>
-                    <div class="promise-item">
-                        <span class="promise-icon">✓</span>
-                        <div class="promise-text">
-                            <strong>迅速な配送</strong>
-                            <p>ご注文から2-3営業日でお届け</p>
-                        </div>
-                    </div>
-                    <div class="promise-item">
-                        <span class="promise-icon">✓</span>
-                        <div class="promise-text">
-                            <strong>安全な決済</strong>
-                            <p>SSL暗号化で安全にお買い物</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

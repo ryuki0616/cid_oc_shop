@@ -15,6 +15,12 @@
 // ============================================
 
 /**
+ * 現在のページ名を保存
+ * @type {string}
+ */
+let currentPage = 'home';
+
+/**
  * カートアイテムを保存する配列
  * @type {Array<Object>}
  */
@@ -774,29 +780,65 @@ function closeCartModal() {
 }
 
 /**
- * ショップについてモーダルを開く関数
+ * ページ切り替え関数
  * 
  * 機能：
- * - 右からスライドインするモーダルを表示
- * - ページスクロールを無効化
+ * - 指定されたページに切り替える
+ * - ナビゲーションのアクティブ状態を更新
+ * - URLハッシュを更新
+ * - ページトップにスクロール
+ * 
+ * @param {string} pageName - 切り替え先のページ名（home, products, about, contact）
  */
-function openAboutModal() {
-    const modal = document.getElementById('aboutModal');
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // スクロールを無効化
+function switchPage(pageName) {
+    // 全てのページを非表示
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => {
+        page.style.display = 'none';
+    });
+    
+    // 指定されたページを表示
+    const targetPage = document.getElementById(`page-${pageName}`);
+    if (targetPage) {
+        targetPage.style.display = 'block';
+        currentPage = pageName;
+        
+        // ナビゲーションのアクティブ状態を更新
+        updateNavigation(pageName);
+        
+        // URLハッシュを更新（ブラウザの戻る/進むボタン対応）
+        window.location.hash = pageName === 'home' ? '' : pageName;
+        
+        // ページトップにスムーズスクロール
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // モバイルメニューを閉じる
+        const navMenu = document.querySelector('.nav-menu');
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        if (navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            mobileMenuButton.classList.remove('active');
+        }
+    }
 }
 
 /**
- * ショップについてモーダルを閉じる関数
+ * ナビゲーションのアクティブ状態を更新
  * 
- * 機能：
- * - モーダルを非表示にする
- * - ページスクロールを有効化
+ * @param {string} pageName - アクティブにするページ名
  */
-function closeAboutModal() {
-    const modal = document.getElementById('aboutModal');
-    modal.classList.remove('active');
-    document.body.style.overflow = ''; // スクロールを有効化
+function updateNavigation(pageName) {
+    // 全てのナビゲーションリンクからactiveクラスを削除
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // 現在のページに対応するリンクにactiveクラスを追加
+    const activeLink = document.querySelector(`.nav-link[data-page="${pageName}"]`);
+    if (activeLink) {
+        activeLink.classList.add('active');
+    }
 }
 
 // ============================================
@@ -848,34 +890,66 @@ function setupEventListeners() {
         mobileMenuButton.classList.toggle('active');
     });
     
-    // ショップについてのリンククリック
-    // ナビゲーションメニューの「ショップについて」リンクを取得
-    const aboutLinks = document.querySelectorAll('a[href="#about"]');
-    aboutLinks.forEach(link => {
+    // ナビゲーションリンクのクリックイベント
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault(); // デフォルトのアンカー動作を防止
-            openAboutModal();
+            const pageName = link.getAttribute('data-page');
+            if (pageName) {
+                switchPage(pageName);
+            }
         });
     });
     
-    // ショップについてモーダルを閉じる
-    document.getElementById('closeAboutButton').addEventListener('click', closeAboutModal);
-    
-    // ショップについてモーダルの背景をクリックして閉じる
-    document.getElementById('aboutModal').addEventListener('click', (e) => {
-        if (e.target.id === 'aboutModal') {
-            closeAboutModal();
+    // ブラウザの戻る/進むボタンに対応
+    window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.substring(1); // #を除去
+        const page = hash || 'home';
+        if (page !== currentPage) {
+            switchPage(page);
         }
     });
+    
+    // お問い合わせフォームの送信処理
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // デフォルトの送信を防止
+            
+            // フォームデータを取得（実際はサーバーに送信）
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                type: formData.get('type'),
+                message: formData.get('message')
+            };
+            
+            // 送信成功のメッセージを表示
+            alert('お問い合わせを受け付けました。\n担当者より24時間以内にご連絡させていただきます。');
+            
+            // フォームをリセット
+            contactForm.reset();
+            
+            console.log('お問い合わせデータ:', data);
+        });
+    }
     
     // ESCキーでモーダルを閉じる
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeCartModal();
             closeProductModal();
-            closeAboutModal();
         }
     });
+    
+    // ページ読み込み時にURLハッシュをチェック
+    const initialHash = window.location.hash.substring(1);
+    if (initialHash && initialHash !== 'home') {
+        switchPage(initialHash);
+    }
 }
 
 // ============================================
