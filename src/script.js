@@ -114,7 +114,7 @@ let products = [
         category: 'home',
         price: 4200,
         description: '静音設計でリラックス空間を演出。LED照明付き。',
-        image: 'https://images.unsplash.com/photo-1602874801006-c2b4c3703155?w=400&h=400&fit=crop'
+        image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&h=400&fit=crop'
     },
     {
         id: 12,
@@ -204,7 +204,11 @@ function createProductCard(product, index) {
     
     card.innerHTML = `
         <div class="product-image-wrapper">
-            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <img src="${product.image}" 
+                 alt="${product.name}" 
+                 class="product-image"
+                 onerror="this.style.display='none';"
+                 onload="this.style.zIndex='1';">
             ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
         </div>
         <div class="product-info">
