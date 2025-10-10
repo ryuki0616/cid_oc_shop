@@ -123,6 +123,138 @@ let products = [
         price: 8900,
         description: '自宅でのトレーニングに最適。重量調整可能な2個セット。',
         image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=400&fit=crop'
+    },
+    {
+        id: 13,
+        name: 'ワイヤレスマウス',
+        category: 'electronics',
+        price: 3800,
+        description: 'エルゴノミクスデザインで長時間の作業も快適。静音クリック採用。',
+        image: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop'
+    },
+    {
+        id: 14,
+        name: 'ポータブルBluetoothスピーカー',
+        category: 'electronics',
+        price: 6900,
+        description: '防水仕様で屋外でも安心。重低音サウンドを楽しめる高性能スピーカー。',
+        image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=400&fit=crop',
+        badge: 'POPULAR'
+    },
+    {
+        id: 15,
+        name: 'タブレットスタンド',
+        category: 'electronics',
+        price: 2400,
+        description: 'アルミニウム製の安定感抜群なスタンド。角度調整可能で様々な用途に。',
+        image: 'https://images.unsplash.com/photo-1585792180666-f7347c490ee2?w=400&h=400&fit=crop'
+    },
+    {
+        id: 16,
+        name: 'USB急速充電器',
+        category: 'electronics',
+        price: 3200,
+        description: '複数デバイス同時充電対応。コンパクトで持ち運びに便利。',
+        image: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400&h=400&fit=crop'
+    },
+    {
+        id: 17,
+        name: 'デザイナーズサングラス',
+        category: 'fashion',
+        price: 9800,
+        description: 'UV400カットレンズ採用。洗練されたデザインで顔立ちを引き立てます。',
+        image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop',
+        badge: 'NEW'
+    },
+    {
+        id: 18,
+        name: 'ニットビーニー',
+        category: 'fashion',
+        price: 3600,
+        description: '柔らかなウール素材。シンプルで合わせやすい冬の定番アイテム。',
+        image: 'https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=400&h=400&fit=crop'
+    },
+    {
+        id: 19,
+        name: 'レザーベルト',
+        category: 'fashion',
+        price: 5400,
+        description: 'イタリア製本革使用。ビジネスシーンにも最適な上質なベルト。',
+        image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=400&h=400&fit=crop'
+    },
+    {
+        id: 20,
+        name: 'キャンバススニーカー',
+        category: 'fashion',
+        price: 6800,
+        description: 'クラシックなデザインで長く愛用できる。快適な履き心地。',
+        image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&h=400&fit=crop'
+    },
+    {
+        id: 21,
+        name: 'セラミック植木鉢セット',
+        category: 'home',
+        price: 4800,
+        description: 'モダンなデザインの3個セット。観葉植物を美しく飾れます。',
+        image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=400&fit=crop'
+    },
+    {
+        id: 22,
+        name: 'ミニマル壁掛け時計',
+        category: 'home',
+        price: 5600,
+        description: 'シンプルで読みやすいデザイン。静音ムーブメント採用。',
+        image: 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=400&h=400&fit=crop'
+    },
+    {
+        id: 23,
+        name: 'ベルベットクッション',
+        category: 'home',
+        price: 3400,
+        description: '高級感のあるベルベット素材。ソファやベッドのアクセントに。',
+        image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=400&h=400&fit=crop'
+    },
+    {
+        id: 24,
+        name: 'アロマキャンドルセット',
+        category: 'home',
+        price: 4500,
+        description: '天然素材使用の3種類セット。癒しの香りで心地よい空間を。',
+        image: 'https://images.unsplash.com/photo-1602874801006-94c3992b7bd7?w=400&h=400&fit=crop',
+        badge: 'POPULAR'
+    },
+    {
+        id: 25,
+        name: 'ステンレスウォーターボトル',
+        category: 'sports',
+        price: 3800,
+        description: '保温・保冷機能付き。24時間温度キープ。環境に優しい選択。',
+        image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&h=400&fit=crop'
+    },
+    {
+        id: 26,
+        name: 'トレーニンググローブ',
+        category: 'sports',
+        price: 2800,
+        description: '手のひら保護とグリップ力向上。ウエイトトレーニングに最適。',
+        image: 'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=400&h=400&fit=crop'
+    },
+    {
+        id: 27,
+        name: 'レジスタンスバンドセット',
+        category: 'sports',
+        price: 3200,
+        description: '5段階の強度セット。自宅で効果的なトレーニングが可能。',
+        image: 'https://images.unsplash.com/photo-1598289431512-b97b0917affc?w=400&h=400&fit=crop',
+        badge: 'NEW'
+    },
+    {
+        id: 28,
+        name: 'マイクロファイバースポーツタオル',
+        category: 'sports',
+        price: 2200,
+        description: '速乾性抜群で持ち運びに便利。ジムやアウトドアに最適。',
+        image: 'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&h=400&fit=crop'
     }
 ];
 
