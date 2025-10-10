@@ -48,7 +48,7 @@
                 
                 <!-- メインナビゲーションメニュー（デスクトップ用） -->
                 <ul class="nav-menu">
-                    <!-- ホームリンク（現在アクティブ） -->
+                   <!-- ホームリンク（現在アクティブ） -->
                     <li><a href="#" class="nav-link active">ホーム</a></li>
                     <!-- 商品一覧セクションへのリンク -->
                     <li><a href="#products" class="nav-link">商品一覧</a></li>
@@ -58,7 +58,7 @@
                     <li><a href="#contact" class="nav-link">お問い合わせ</a></li>
                 </ul>
                 
-                <!-- ショッピングカートボタン -->
+                <!-- ショッピングカートボ タン -->
                 <div class="cart-icon-wrapper">
                     <!-- カートボタン（クリックでカートモーダルを開く） -->
                     <button class="cart-button" id="cartButton" aria-label="ショッピングカート">
@@ -205,6 +205,140 @@
             <div class="product-modal-body" id="productModalBody">
                 <!-- 商品詳細はscript.jsのshowProductDetail()関数で動的に生成されます -->
                 <!-- 商品画像、名前、価格、説明、カートに追加ボタンを含む -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         ショップについてモーダル（右スライド）
+         ============================================ -->
+    <!-- モーダル背景：画面全体をオーバーレイ表示 -->
+    <div class="about-modal" id="aboutModal">
+        <!-- モーダルコンテンツ：右側からスライドイン -->
+        <div class="about-modal-content">
+            <!-- モーダルヘッダー：タイトルと閉じるボタン -->
+            <div class="about-modal-header">
+                <h3>ショップについて</h3>
+                <!-- 閉じるボタン：クリックでモーダルを閉じる -->
+                <button class="close-button" id="closeAboutButton" aria-label="閉じる">
+                    <!-- ×印アイコン（SVG） -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- モーダルボディ：スクロール可能 -->
+            <div class="about-modal-body">
+                <!-- セクション1：ショップ紹介 -->
+                <div class="about-section-intro">
+                    <p class="about-lead">モダンでスタイリッシュな商品を、シンプルに。</p>
+                </div>
+
+                <!-- セクション2：私たちのビジョン -->
+                <div class="about-section-item">
+                    <div class="about-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 16v-4"></path>
+                            <path d="M12 8h.01"></path>
+                        </svg>
+                    </div>
+                    <h4>私たちのビジョン</h4>
+                    <p>
+                        CID OC Shopは、シンプルさと機能性を兼ね備えた商品を提供することで、
+                        お客様の日常をより豊かにすることを目指しています。
+                        モダンなデザインと高品質な製品で、新しいライフスタイルを提案します。
+                    </p>
+                </div>
+
+                <!-- セクション3：品質へのこだわり -->
+                <div class="about-section-item">
+                    <div class="about-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <path d="M9 12l2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    <h4>品質へのこだわり</h4>
+                    <p>
+                        全ての商品は厳選された素材を使用し、細部まで丁寧に作られています。
+                        品質管理を徹底し、長く愛用できる製品だけをお届けします。
+                        お客様の満足度が私たちの最優先事項です。
+                    </p>
+                </div>
+
+                <!-- セクション4：お客様サポート -->
+                <div class="about-section-item">
+                    <div class="about-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <h4>お客様サポート</h4>
+                    <p>
+                        購入前のご相談から、アフターサービスまで、専門スタッフが丁寧にサポートいたします。
+                        ご不明な点がございましたら、お気軽にお問い合わせください。
+                        お客様の声を大切にしています。
+                    </p>
+                </div>
+
+                <!-- セクション5：統計情報 -->
+                <div class="about-stats">
+                    <h4>私たちの実績</h4>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-number">28+</div>
+                            <div class="stat-label">厳選された商品</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">カテゴリー</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">顧客満足度</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">2-3日</div>
+                            <div class="stat-label">平均配送日数</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- セクション6：私たちの約束 -->
+                <div class="about-promises">
+                    <h4>私たちの約束</h4>
+                    <div class="promise-item">
+                        <span class="promise-icon">✓</span>
+                        <div class="promise-text">
+                            <strong>送料無料</strong>
+                            <p>¥5,000以上のご注文で全国送料無料</p>
+                        </div>
+                    </div>
+                    <div class="promise-item">
+                        <span class="promise-icon">✓</span>
+                        <div class="promise-text">
+                            <strong>安心の返品保証</strong>
+                            <p>商品到着後30日以内なら返品可能</p>
+                        </div>
+                    </div>
+                    <div class="promise-item">
+                        <span class="promise-icon">✓</span>
+                        <div class="promise-text">
+                            <strong>迅速な配送</strong>
+                            <p>ご注文から2-3営業日でお届け</p>
+                        </div>
+                    </div>
+                    <div class="promise-item">
+                        <span class="promise-icon">✓</span>
+                        <div class="promise-text">
+                            <strong>安全な決済</strong>
+                            <p>SSL暗号化で安全にお買い物</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

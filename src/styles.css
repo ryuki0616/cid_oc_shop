@@ -805,6 +805,260 @@ body {
 }
 
 /* ============================================
+   ショップについてモーダル（右スライド）
+   ============================================ */
+
+/*
+ * ショップについてモーダル全体
+ * カートモーダルと同じスタイルで右からスライド
+ */
+.about-modal {
+    display: none;                      /* 初期状態：非表示 */
+    position: fixed;                    /* 画面に固定 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* 半透明の黒背景 */
+    z-index: 2000;                      /* 最前面に表示 */
+    animation: fadeIn 0.3s ease;
+}
+
+/*
+ * アクティブ状態：表示
+ */
+.about-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;  /* 右端に配置 */
+}
+
+/*
+ * モーダルコンテンツ：右側からスライドイン
+ */
+.about-modal-content {
+    background-color: var(--color-white);
+    width: 100%;
+    max-width: 600px;                   /* 最大幅600px */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    animation: slideInRight 0.3s ease;  /* 右からスライド */
+    box-shadow: var(--shadow-large);
+}
+
+/*
+ * モーダルヘッダー
+ */
+.about-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border-bottom: 2px solid var(--color-gray-lighter);
+    background-color: var(--color-black);  /* 黒背景 */
+    color: var(--color-white);             /* 白文字 */
+}
+
+.about-modal-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.about-modal-header .close-button {
+    color: var(--color-white);  /* 白色の閉じるボタン */
+}
+
+/*
+ * モーダルボディ：スクロール可能なコンテンツエリア
+ */
+.about-modal-body {
+    flex: 1;                    /* 残りの高さを全て使用 */
+    overflow-y: auto;           /* 縦スクロール有効 */
+    padding: 2rem;
+}
+
+/*
+ * イントロダクション
+ */
+.about-section-intro {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-gray-lighter);
+}
+
+.about-lead {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-gray-dark);
+    line-height: 1.8;
+    text-align: center;
+}
+
+/*
+ * 各セクションアイテム
+ */
+.about-section-item {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background-color: var(--color-gray-lighter);
+    border-radius: var(--radius-medium);
+    transition: var(--transition-medium);
+}
+
+.about-section-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-medium);
+}
+
+/*
+ * アイコンスタイル
+ */
+.about-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.about-section-item h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--color-black);
+}
+
+.about-section-item p {
+    color: var(--color-gray-medium);
+    line-height: 1.8;
+}
+
+/*
+ * 統計情報エリア
+ */
+.about-stats {
+    margin: 3rem 0;
+    padding: 2rem;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border-radius: var(--radius-large);
+}
+
+.about-stats h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-medium);
+    transition: var(--transition-medium);
+}
+
+.stat-box:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--color-gray-light);
+}
+
+/*
+ * 約束エリア
+ */
+.about-promises {
+    margin-top: 2rem;
+}
+
+.about-promises h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--color-black);
+}
+
+.promise-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--color-gray-lighter);
+    border-radius: var(--radius-medium);
+    transition: var(--transition-fast);
+}
+
+.promise-item:hover {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.promise-item:hover .promise-icon {
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.promise-item:hover .promise-text strong,
+.promise-item:hover .promise-text p {
+    color: var(--color-white);
+}
+
+.promise-icon {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    transition: var(--transition-fast);
+}
+
+.promise-text {
+    flex: 1;
+}
+
+.promise-text strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--color-black);
+}
+
+.promise-text p {
+    font-size: 0.875rem;
+    color: var(--color-gray-medium);
+    margin: 0;
+}
+
+/* ============================================
    フッター
    ============================================ */
 
@@ -980,6 +1234,14 @@ body {
     /* モーダル */
     .cart-modal-content {
         max-width: 100%;
+    }
+    
+    .about-modal-content {
+        max-width: 100%;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
     }
     
     .product-modal-content {

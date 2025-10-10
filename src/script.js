@@ -773,6 +773,32 @@ function closeCartModal() {
     document.body.style.overflow = '';
 }
 
+/**
+ * ショップについてモーダルを開く関数
+ * 
+ * 機能：
+ * - 右からスライドインするモーダルを表示
+ * - ページスクロールを無効化
+ */
+function openAboutModal() {
+    const modal = document.getElementById('aboutModal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // スクロールを無効化
+}
+
+/**
+ * ショップについてモーダルを閉じる関数
+ * 
+ * 機能：
+ * - モーダルを非表示にする
+ * - ページスクロールを有効化
+ */
+function closeAboutModal() {
+    const modal = document.getElementById('aboutModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = ''; // スクロールを有効化
+}
+
 // ============================================
 // イベントリスナー設定
 // ============================================
@@ -822,11 +848,32 @@ function setupEventListeners() {
         mobileMenuButton.classList.toggle('active');
     });
     
+    // ショップについてのリンククリック
+    // ナビゲーションメニューの「ショップについて」リンクを取得
+    const aboutLinks = document.querySelectorAll('a[href="#about"]');
+    aboutLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); // デフォルトのアンカー動作を防止
+            openAboutModal();
+        });
+    });
+    
+    // ショップについてモーダルを閉じる
+    document.getElementById('closeAboutButton').addEventListener('click', closeAboutModal);
+    
+    // ショップについてモーダルの背景をクリックして閉じる
+    document.getElementById('aboutModal').addEventListener('click', (e) => {
+        if (e.target.id === 'aboutModal') {
+            closeAboutModal();
+        }
+    });
+    
     // ESCキーでモーダルを閉じる
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeCartModal();
             closeProductModal();
+            closeAboutModal();
         }
     });
 }
