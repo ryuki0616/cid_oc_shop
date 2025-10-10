@@ -53,7 +53,7 @@ let products = [
     },
     {
         id: 4,
-        name: 'デザイナーズTシャツ',
+        name: 'シンプルなTシャツ',
         category: 'fashion',
         price: 4500,
         description: '上質なコットン素材。洗練されたデザインで日常をアップグレード。',
@@ -89,12 +89,12 @@ let products = [
         category: 'sports',
         price: 11200,
         description: '軽量で通気性に優れた設計。長距離ランニングにも最適。',
-        image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxb7Rl_8VReMm4MKUUdu8A3_8ClismeIX5hQ&s',
         badge: 'SALE'
     },
     {
         id: 9,
-        name: 'メカニカルキーボード',
+        name: 'キーボード',
         category: 'electronics',
         price: 15800,
         description: '打鍵感が心地よいメカニカルスイッチ採用。作業効率を大幅アップ。',
@@ -138,12 +138,12 @@ let products = [
         category: 'electronics',
         price: 6900,
         description: '防水仕様で屋外でも安心。重低音サウンドを楽しめる高性能スピーカー。',
-        image: 'https://images.unsplash.com/photo-1589492477829-5e65395b66cc?w=400&h=400&fit=crop',
+        image: 'https://m.media-amazon.com/images/I/61-kcCin86L._UF894,1000_QL80_.jpg',
         badge: 'POPULAR'
     },
     {
         id: 15,
-        name: 'タブレットスタンド',
+        name: 'モダンモニター',
         category: 'electronics',
         price: 2400,
         description: 'アルミニウム製の安定感抜群なスタンド。角度調整可能で様々な用途に。',
@@ -155,11 +155,11 @@ let products = [
         category: 'electronics',
         price: 3200,
         description: '複数デバイス同時充電対応。コンパクトで持ち運びに便利。',
-        image: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400&h=400&fit=crop'
+        image: 'https://www.biccamera.com/bc/include_cms_contents/topics/osusume_charger/c202205.jpg'
     },
     {
         id: 17,
-        name: 'デザイナーズサングラス',
+        name: 'サングラス',
         category: 'fashion',
         price: 9800,
         description: 'UV400カットレンズ採用。洗練されたデザインで顔立ちを引き立てます。',
@@ -220,7 +220,7 @@ let products = [
         category: 'home',
         price: 4500,
         description: '天然素材使用の3種類セット。癒しの香りで心地よい空間を。',
-        image: 'https://images.unsplash.com/photo-1510380410676-6c5dcbcf954e?w=400&h=400&fit=crop',
+        image: 'https://mitsuraku.jp/kiji/wp-content/uploads/2019/01/aromatherapy-candle-effect_ic.jpg',
         badge: 'POPULAR'
     },
     {
@@ -233,7 +233,7 @@ let products = [
     },
     {
         id: 26,
-        name: 'トレーニンググローブ',
+        name: 'トレーニングセット',
         category: 'sports',
         price: 2800,
         description: '手のひら保護とグリップ力向上。ウエイトトレーニングに最適。',
@@ -241,11 +241,11 @@ let products = [
     },
     {
         id: 27,
-        name: 'レジスタンスバンドセット',
-        category: 'sports',
+        name: 'シャープペンシル',
+        category: 'home',
         price: 3200,
-        description: '5段階の強度セット。自宅で効果的なトレーニングが可能。',
-        image: 'https://images.unsplash.com/photo-1598289431512-b97b0917affc?w=400&h=400&fit=crop',
+        description: 'シンプルなデザインで使いやすい。書き心地も良い。',
+        image: 'https://pentonotelife.com/cdn/shop/files/DSC_3276.jpg?v=1710558052&width=1445',
         badge: 'NEW'
     },
     {
@@ -254,7 +254,7 @@ let products = [
         category: 'sports',
         price: 2200,
         description: '速乾性抜群で持ち運びに便利。ジムやアウトドアに最適。',
-        image: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop'
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5ta14QZ7v4OU7aavxNc99BJ0VWAhm8aO3FQ&s'
     }
 ];
 
@@ -273,18 +273,32 @@ let currentFilters = {
 
 /**
  * ページ読み込み時の初期化処理
+ * 
+ * DOMContentLoadedイベント：
+ * HTMLの読み込みと解析が完了した時点で実行される
+ * 画像などの外部リソースの読み込みを待たない
+ * 
+ * 実行内容：
+ * 1. 商品データを画面に表示
+ * 2. 保存されたカート情報を復元
+ * 3. ボタンなどのイベントリスナーを設定
+ * 4. スクロール時の動的効果を設定
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // 商品を表示
+    // 1. 商品を表示
+    // products配列の全商品をグリッドに表示
     displayProducts(products);
     
-    // カートをローカルストレージから読み込み
+    // 2. カートをローカルストレージから読み込み
+    // 前回の訪問時にカートに入れた商品を復元
     loadCartFromStorage();
     
-    // イベントリスナーの設定
+    // 3. イベントリスナーの設定
+    // ボタンクリック、フィルター変更などのイベントを設定
     setupEventListeners();
     
-    // ナビゲーションのスクロール効果
+    // 4. ナビゲーションのスクロール効果
+    // スクロール時にヘッダーの影を変更する処理
     setupScrollEffects();
 });
 
@@ -294,41 +308,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * 商品を画面に表示する関数
+ * 
+ * 機能：
+ * - 商品データを受け取り、HTMLに変換して表示
+ * - フィルタリング・ソート後の表示にも使用
+ * - 商品が0件の場合はメッセージを表示
+ * 
  * @param {Array<Object>} productsToDisplay - 表示する商品の配列
+ * 
+ * 処理フロー：
+ * 1. 既存のグリッド内容をクリア
+ * 2. 商品数をチェック（0件の場合はメッセージ表示）
+ * 3. 各商品のカードを生成してグリッドに追加
  */
 function displayProducts(productsToDisplay) {
+    // 商品グリッドのDOM要素を取得
     const productsGrid = document.getElementById('productsGrid');
     
-    // グリッドをクリア
+    // グリッドの中身を空にする（既存の商品を削除）
     productsGrid.innerHTML = '';
     
-    // 商品が見つからない場合
+    // 商品が見つからない場合（フィルタリング結果が0件）
     if (productsToDisplay.length === 0) {
+        // エラーメッセージを表示
         productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--color-gray-medium);">該当する商品が見つかりませんでした。</p>';
-        return;
+        return; // 処理を終了
     }
     
-    // 各商品のカードを生成
+    // 各商品のカードを生成してグリッドに追加
+    // forEach: 配列の各要素に対して処理を実行
     productsToDisplay.forEach((product, index) => {
+        // 商品カードのHTML要素を生成
         const productCard = createProductCard(product, index);
+        // グリッドに商品カードを追加
         productsGrid.appendChild(productCard);
     });
 }
 
 /**
  * 商品カード要素を生成する関数
- * @param {Object} product - 商品オブジェクト
- * @param {number} index - アニメーション用のインデックス
- * @returns {HTMLElement} 商品カード要素
+ * 
+ * 機能：
+ * - 商品データからHTMLカード要素を動的に生成
+ * - 画像、名前、価格、説明、ボタンを含む
+ * - クリックで商品詳細モーダルを表示
+ * - アニメーション効果を適用（順番に表示）
+ * 
+ * @param {Object} product - 商品オブジェクト（id, name, price, image等）
+ * @param {number} index - 配列のインデックス（アニメーション遅延用）
+ * @returns {HTMLElement} 生成された商品カードのDOM要素
  */
 function createProductCard(product, index) {
+    // div要素を作成
     const card = document.createElement('div');
+    // CSSクラスを設定（スタイル適用）
     card.className = 'product-card';
+    // アニメーション遅延を設定（順番に表示される効果）
+    // index * 0.1s = 0s, 0.1s, 0.2s, 0.3s...
     card.style.animationDelay = `${index * 0.1}s`;
     
-    // カードをクリックすると商品詳細を表示
+    // カードクリック時のイベントリスナーを設定
+    // 商品詳細モーダルを表示
     card.addEventListener('click', (e) => {
         // 「カートに追加」ボタンのクリックは除外
+        // closest(): 最も近い親要素を検索
         if (!e.target.closest('.add-to-cart-button')) {
             showProductDetail(product);
         }
@@ -434,43 +477,76 @@ function applyFiltersAndSort() {
 
 /**
  * 商品をカートに追加する関数
+ * 
+ * 機能：
+ * - 商品IDから商品情報を取得
+ * - カート内に既に存在する場合は数量を増やす
+ * - 新規の場合はカートに追加（初期数量：1）
+ * - UIを更新し、ローカルストレージに保存
+ * - ユーザーにフィードバックを表示
+ * 
  * @param {number} productId - 追加する商品のID
+ * 
+ * 処理フロー：
+ * 1. 商品IDから商品データを検索
+ * 2. カート内の重複チェック
+ * 3. 重複なし → 新規追加、重複あり → 数量+1
+ * 4. UIを更新（カート数、合計金額）
+ * 5. ローカルストレージに保存
+ * 6. アニメーションでフィードバック
  */
 function addToCart(productId) {
+    // products配列から商品IDに一致する商品を検索
+    // find(): 条件に一致する最初の要素を返す
     const product = products.find(p => p.id === productId);
+    // 商品が見つからない場合は処理を中断
     if (!product) return;
     
     // カート内に同じ商品があるか確認
     const existingItem = cart.find(item => item.id === productId);
     
     if (existingItem) {
-        // 既に存在する場合は数量を増やす
+        // 既に存在する場合は数量を1増やす
         existingItem.quantity += 1;
     } else {
         // 新規追加
+        // スプレッド構文（...）で商品データをコピーし、
+        // quantityプロパティを追加
         cart.push({
             ...product,
-            quantity: 1
+            quantity: 1  // 初期数量は1
         });
     }
     
-    // UIを更新
+    // UIを更新（カート数バッジ、カート内容、合計金額）
     updateCartUI();
     
-    // ローカルストレージに保存
+    // ローカルストレージに保存（ブラウザを閉じても保持）
     saveCartToStorage();
     
-    // フィードバックアニメーション
+    // フィードバックアニメーション（カートアイコンを拡大）
     showAddToCartFeedback();
 }
 
 /**
  * カートからアイテムを削除する関数
+ * 
+ * 機能：
+ * - 指定された商品IDの商品をカートから完全に削除
+ * - UIを更新し、ローカルストレージに保存
+ * 
  * @param {number} productId - 削除する商品のID
+ * 
+ * 処理：
+ * - filter()で指定IDの商品以外を新しい配列として作成
  */
 function removeFromCart(productId) {
+    // filter(): 条件に一致する要素だけの新しい配列を作成
+    // productIdに一致しないアイテムだけを残す = 削除
     cart = cart.filter(item => item.id !== productId);
+    // UIを更新
     updateCartUI();
+    // ローカルストレージに保存
     saveCartToStorage();
 }
 
@@ -496,29 +572,63 @@ function updateQuantity(productId, change) {
 
 /**
  * カートUIを更新する関数
+ * 
+ * 機能：
+ * - カート数バッジを更新（ヘッダーの数字）
+ * - カートモーダル内の商品リストを更新
+ * - 合計金額を計算して表示
+ * - カートが空の場合は「カートは空です」を表示
+ * 
+ * 処理内容：
+ * 1. カート内の総商品数を計算してバッジを更新
+ * 2. カートアイテムリストをHTMLで生成
+ * 3. 合計金額を計算して表示
+ * 
+ * 呼び出されるタイミング：
+ * - 商品をカートに追加した時
+ * - 商品をカートから削除した時
+ * - 商品の数量を変更した時
+ * - ページ読み込み時（ローカルストレージから復元）
  */
 function updateCartUI() {
-    // カート数を更新
+    // ========== 1. カート数バッジを更新 ==========
+    // ヘッダーのカートアイコン上の数字を更新
     const cartCount = document.getElementById('cartCount');
+    
+    // reduce(): 配列の全要素を処理して単一の値を返す
+    // 全商品の数量を合計（例：3種類の商品を2個ずつ = 6）
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCount.textContent = totalItems;
     
-    // カートアイテムを表示
+    // ========== 2. カートアイテムリストを更新 ==========
+    // モーダル内の商品リストエリアを取得
     const cartItemsContainer = document.getElementById('cartItems');
     
+    // カートが空の場合
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<div class="cart-empty">カートは空です</div>';
     } else {
+        // カート内の各商品をHTMLに変換
+        // map(): 配列の各要素を新しい形に変換
+        // join(''): 配列を文字列に結合
         cartItemsContainer.innerHTML = cart.map(item => `
             <div class="cart-item">
+                <!-- 商品画像 -->
                 <img src="${item.image}" alt="${item.name}" class="cart-item-image">
                 <div class="cart-item-info">
+                    <!-- 商品名 -->
                     <div class="cart-item-name">${item.name}</div>
+                    <!-- 商品価格（toLocaleString()でカンマ区切り） -->
                     <div class="cart-item-price">¥${item.price.toLocaleString()}</div>
+                    <!-- 数量変更ボタンと削除ボタン -->
                     <div class="cart-item-actions">
+                        <!-- 数量を減らすボタン -->
                         <button class="quantity-button" onclick="updateQuantity(${item.id}, -1)">-</button>
+                        <!-- 現在の数量表示 -->
                         <span class="quantity-display">${item.quantity}</span>
+                        <!-- 数量を増やすボタン -->
                         <button class="quantity-button" onclick="updateQuantity(${item.id}, 1)">+</button>
+                        <!-- 商品削除ボタン -->
                         <button class="remove-button" onclick="removeFromCart(${item.id})">削除</button>
                     </div>
                 </div>
@@ -526,38 +636,83 @@ function updateCartUI() {
         `).join('');
     }
     
-    // 合計金額を更新
+    // ========== 3. 合計金額を更新 ==========
+    // 各商品の（価格 × 数量）を合計
+    // 例：¥1000の商品2個 + ¥2000の商品1個 = ¥4000
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    // toLocaleString(): 数値をカンマ区切りの文字列に変換
     document.getElementById('cartTotal').textContent = `¥${total.toLocaleString()}`;
 }
 
 /**
  * カートをローカルストレージに保存
+ * 
+ * 機能：
+ * - カートの内容をブラウザに保存
+ * - ページをリロードしても内容が維持される
+ * - ブラウザを閉じてもデータが残る
+ * 
+ * ローカルストレージ：
+ * - ブラウザに5-10MBまでデータを保存できる
+ * - キーと値のペアで保存（キー: 'cidOcShopCart'）
+ * - 文字列しか保存できないのでJSON形式に変換
  */
 function saveCartToStorage() {
+    // cart配列をJSON文字列に変換してローカルストレージに保存
+    // JSON.stringify(): JavaScriptオブジェクト → JSON文字列
     localStorage.setItem('cidOcShopCart', JSON.stringify(cart));
 }
 
 /**
  * カートをローカルストレージから読み込み
+ * 
+ * 機能：
+ * - 前回保存したカート情報を復元
+ * - ページ読み込み時に自動で実行される
+ * - 保存データがない場合は何もしない
+ * 
+ * 処理フロー：
+ * 1. ローカルストレージからデータを取得
+ * 2. データが存在すればJSON → JavaScriptオブジェクトに変換
+ * 3. cart変数に代入してUIを更新
  */
 function loadCartFromStorage() {
+    // ローカルストレージから保存されたカートデータを取得
     const savedCart = localStorage.getItem('cidOcShopCart');
+    
+    // データが存在する場合のみ処理
     if (savedCart) {
+        // JSON文字列をJavaScriptの配列に変換
+        // JSON.parse(): JSON文字列 → JavaScriptオブジェクト
         cart = JSON.parse(savedCart);
+        // UIを更新（カート数、商品リスト、合計金額）
         updateCartUI();
     }
 }
 
 /**
  * カート追加のフィードバックアニメーション
+ * 
+ * 機能：
+ * - 商品をカートに追加した時の視覚的フィードバック
+ * - カートボタンを一瞬拡大して、ユーザーに通知
+ * - 200ミリ秒後に元のサイズに戻る
+ * 
+ * アニメーション：
+ * 1. カートボタンを1.2倍に拡大
+ * 2. 200ms待機
+ * 3. 元のサイズに戻す
  */
 function showAddToCartFeedback() {
+    // カートボタンのDOM要素を取得
     const cartButton = document.getElementById('cartButton');
+    // CSSのtransformで1.2倍に拡大
     cartButton.style.transform = 'scale(1.2)';
+    // 200ミリ秒後に実行される関数を設定
     setTimeout(() => {
+        // 元のサイズに戻す
         cartButton.style.transform = 'scale(1)';
-    }, 200);
+    }, 200); // 200ms = 0.2秒
 }
 
 // ============================================
@@ -707,15 +862,38 @@ function setupScrollEffects() {
 
 /**
  * 数値を通貨フォーマットに変換
- * @param {number} amount - 金額
- * @returns {string} フォーマットされた金額
+ * 
+ * 機能：
+ * - 数値を日本円の表記に変換
+ * - 自動的に3桁ごとにカンマを挿入
+ * 
+ * @param {number} amount - 金額（例：12800）
+ * @returns {string} フォーマットされた金額（例：¥12,800）
+ * 
+ * 使用例：
+ * formatCurrency(12800) → "¥12,800"
+ * formatCurrency(1000000) → "¥1,000,000"
  */
 function formatCurrency(amount) {
+    // toLocaleString('ja-JP'): 日本のロケールで数値をフォーマット
     return `¥${amount.toLocaleString('ja-JP')}`;
 }
 
+// ============================================
+// コンソールメッセージ（遊び心）
+// ============================================
+
 /**
- * コンソールにウェルカムメッセージを表示（遊び心）
+ * ブラウザのコンソールにウェルカムメッセージを表示
+ * 
+ * 目的：
+ * - 開発者ツールを開いた人へのメッセージ
+ * - サイトの技術スタックを示す
+ * - 遊び心とプロフェッショナリズムの両立
+ * 
+ * console.log()の%c記法：
+ * - %cの後の文字列にCSSスタイルを適用可能
+ * - 第2引数にCSSプロパティを記述
  */
 console.log('%c🛒 CID OC Shop へようこそ！', 'color: #000; font-size: 20px; font-weight: bold;');
 console.log('%c開発者の方へ: このサイトはモダンなJavaScriptで構築されています。', 'color: #666; font-size: 14px;');

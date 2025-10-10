@@ -1,97 +1,167 @@
 /**
+ * ====================================================================
  * CID OC Shop - スタイルシート
+ * ====================================================================
+ * 
+ * 概要：
  * モダンでミニマルなEコマースサイトのデザイン
- * カラースキーム: 黒 (#000000), 白 (#FFFFFF), グレー (#333333, #666666, #999999)
+ * 黒白基調のシンプルなデザインで、ユーザビリティを重視
+ * 
+ * カラースキーム：
+ * - メイン: 黒 (#000000)
+ * - サブ: 白 (#FFFFFF)
+ * - アクセント: グレー系 (#333333, #666666, #999999)
+ * 
+ * デザイン原則：
+ * - モバイルファーストのレスポンシブデザイン
+ * - CSS Grid・Flexboxによる柔軟なレイアウト
+ * - スムーズなアニメーション・トランジション
+ * - アクセシビリティを考慮したコントラスト比
+ * 
+ * ファイル構造：
+ * 1. リセット・基本設定
+ * 2. コンテナ・レイアウト
+ * 3. ヘッダーナビゲーション
+ * 4. ヒーローセクション
+ * 5. 商品フィルター
+ * 6. 商品グリッド
+ * 7. カートモーダル
+ * 8. 商品詳細モーダル
+ * 9. フッター
+ * 10. アニメーション
+ * 11. レスポンシブデザイン
  */
 
 /* ============================================
    リセット・基本設定
    ============================================ */
 
+/* 
+ * 全要素のマージン・パディングをリセット
+ * box-sizingをborder-boxに統一して、
+ * paddingとborderを幅・高さに含める
+ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/*
+ * CSS変数の定義
+ * 色・トランジション・シャドウ・角丸など、
+ * サイト全体で使用する値を一元管理
+ */
 :root {
-    /* メインカラー */
-    --color-black: #000000;
-    --color-white: #FFFFFF;
-    --color-gray-dark: #333333;
-    --color-gray-medium: #666666;
-    --color-gray-light: #999999;
-    --color-gray-lighter: #f5f5f5;
+    /* メインカラーパレット */
+    --color-black: #000000;          /* メインカラー：背景、テキスト */
+    --color-white: #FFFFFF;          /* サブカラー：背景、テキスト */
+    --color-gray-dark: #333333;      /* ダークグレー：ボーダー、ボタン */
+    --color-gray-medium: #666666;    /* ミディアムグレー：サブテキスト */
+    --color-gray-light: #999999;     /* ライトグレー：プレースホルダー */
+    --color-gray-lighter: #f5f5f5;   /* 背景グレー：セクション背景 */
     
-    /* トランジション */
-    --transition-fast: 0.2s ease;
-    --transition-medium: 0.3s ease;
-    --transition-slow: 0.5s ease;
+    /* トランジション速度 */
+    --transition-fast: 0.2s ease;    /* 高速：ボタンホバー */
+    --transition-medium: 0.3s ease;  /* 中速：カード移動 */
+    --transition-slow: 0.5s ease;    /* 低速：画像拡大 */
     
-    /* シャドウ */
-    --shadow-small: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.15);
-    --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.2);
+    /* シャドウ（影） */
+    --shadow-small: 0 2px 8px rgba(0, 0, 0, 0.1);   /* 小：ボタン */
+    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.15); /* 中：カード */
+    --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.2);   /* 大：モーダル */
     
-    /* ボーダー半径 */
-    --radius-small: 4px;
-    --radius-medium: 8px;
-    --radius-large: 16px;
+    /* ボーダー半径（角丸） */
+    --radius-small: 4px;    /* 小：タグ、バッジ */
+    --radius-medium: 8px;   /* 中：ボタン、入力欄 */
+    --radius-large: 16px;   /* 大：カード、モーダル */
 }
 
+/*
+ * HTML全体の設定
+ * スムーススクロールを有効化
+ */
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; /* アンカーリンクをスムーズにスクロール */
 }
 
+/*
+ * Body全体の基本設定
+ * フォント、色、行間などを定義
+ */
 body {
+    /* フォントファミリー：日本語・英語対応 */
     font-family: 'Noto Sans JP', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    background-color: var(--color-white);
-    color: var(--color-black);
-    line-height: 1.6;
-    overflow-x: hidden;
+    background-color: var(--color-white);  /* 背景色：白 */
+    color: var(--color-black);             /* テキスト色：黒 */
+    line-height: 1.6;                      /* 行間：1.6倍で読みやすく */
+    overflow-x: hidden;                    /* 横スクロールを無効化 */
 }
 
 /* ============================================
    コンテナ・レイアウト
    ============================================ */
 
+/*
+ * コンテナクラス
+ * サイト全体で使用する基本レイアウト
+ * 最大幅1200pxで中央配置、左右に余白を確保
+ */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    max-width: 1200px;    /* 最大幅を1200pxに制限 */
+    margin: 0 auto;       /* 左右を自動マージンで中央配置 */
+    padding: 0 2rem;      /* 左右に2remの余白 */
 }
 
 /* ============================================
    ヘッダーナビゲーション
    ============================================ */
 
+/*
+ * ヘッダー全体
+ * 画面上部に固定表示（stickyポジション）
+ * スクロールしても常に表示される
+ */
 .header {
-    background-color: var(--color-black);
-    color: var(--color-white);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: var(--shadow-medium);
+    background-color: var(--color-black);  /* 背景：黒 */
+    color: var(--color-white);             /* テキスト：白 */
+    position: sticky;                       /* スクロール時に上部固定 */
+    top: 0;                                /* 上端からの距離：0 */
+    z-index: 1000;                         /* 最前面に表示 */
+    box-shadow: var(--shadow-medium);      /* 下に影を追加 */
 }
 
+/*
+ * ナビゲーションバー
+ * Flexboxで横並びレイアウト
+ * ロゴ、メニュー、カートを均等に配置
+ */
 .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    gap: 2rem;
+    display: flex;                    /* Flexboxレイアウト */
+    justify-content: space-between;   /* 要素を両端揃え */
+    align-items: center;              /* 垂直方向中央揃え */
+    padding: 1rem 0;                  /* 上下に1remの余白 */
+    gap: 2rem;                        /* 要素間に2remの隙間 */
 }
 
-/* ロゴ */
+/*
+ * ロゴスタイル
+ * ショップ名を表示
+ * ホバー時に色を変更してインタラクティブ性を追加
+ */
 .logo h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    transition: var(--transition-fast);
+    font-size: 1.5rem;                    /* フォントサイズ：1.5rem */
+    font-weight: 700;                     /* 太字 */
+    letter-spacing: 0.05em;               /* 文字間隔を広げる */
+    transition: var(--transition-fast);   /* スムーズな色変更 */
 }
 
+/*
+ * ロゴホバーエフェクト
+ * マウスを乗せると色が変わる
+ */
 .logo:hover h1 {
-    color: var(--color-gray-light);
+    color: var(--color-gray-light);  /* ホバー時：ライトグレー */
 }
 
 /* ナビゲーションメニュー */

@@ -1,52 +1,83 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <!-- ============================================
+         ページメタ情報
+         ============================================ -->
+    <!-- 文字コード設定（UTF-8：日本語対応） -->
     <meta charset="UTF-8">
+    
+    <!-- レスポンシブデザイン設定（モバイル対応） -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO対策：ページの説明文（検索結果に表示される） -->
     <meta name="description" content="CID OC Shop - モダンでスタイリッシュなオンラインショップ">
+    
+    <!-- SEO対策：キーワード設定 -->
     <meta name="keywords" content="オンラインショップ,ECサイト,ショッピング">
+    
+    <!-- ブラウザタブに表示されるタイトル -->
     <title>CID OC Shop - Modern Online Shopping</title>
     
-    <!-- Googleフォント -->
+    <!-- ============================================
+         外部リソース読み込み
+         ============================================ -->
+    <!-- Googleフォント：読み込み速度向上のための事前接続 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Googleフォント：Noto Sans JP（日本語）とInter（英語）を読み込み -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- スタイルシート -->
+    <!-- メインスタイルシート読み込み -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- ヘッダーナビゲーション -->
+    <!-- ============================================
+         ヘッダーナビゲーション（固定ヘッダー）
+         ============================================ -->
     <header class="header">
+        <!-- コンテナ：最大幅1200pxで中央配置 -->
         <div class="container">
+            <!-- ナビゲーションバー：ロゴ、メニュー、カートを横並び -->
             <nav class="nav">
-                <!-- ロゴ -->
+                <!-- ショップロゴ -->
                 <div class="logo">
                     <h1>CID OC Shop</h1>
                 </div>
                 
-                <!-- ナビゲーションメニュー -->
+                <!-- メインナビゲーションメニュー（デスクトップ用） -->
                 <ul class="nav-menu">
+                    <!-- ホームリンク（現在アクティブ） -->
                     <li><a href="#" class="nav-link active">ホーム</a></li>
+                    <!-- 商品一覧セクションへのリンク -->
                     <li><a href="#products" class="nav-link">商品一覧</a></li>
+                    <!-- ショップについてのページリンク -->
                     <li><a href="#about" class="nav-link">ショップについて</a></li>
+                    <!-- お問い合わせページリンク -->
                     <li><a href="#contact" class="nav-link">お問い合わせ</a></li>
                 </ul>
                 
-                <!-- カートアイコン -->
+                <!-- ショッピングカートボタン -->
                 <div class="cart-icon-wrapper">
+                    <!-- カートボタン（クリックでカートモーダルを開く） -->
                     <button class="cart-button" id="cartButton" aria-label="ショッピングカート">
+                        <!-- カートアイコン（SVG） -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <!-- カートの車輪部分 -->
                             <circle cx="9" cy="21" r="1"></circle>
                             <circle cx="20" cy="21" r="1"></circle>
+                            <!-- カートの本体部分 -->
                             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                         </svg>
+                        <!-- カート内商品数を表示（JavaScriptで更新） -->
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
                 </div>
                 
-                <!-- モバイルメニューボタン -->
+                <!-- モバイルメニューボタン（768px以下で表示） -->
                 <button class="mobile-menu-button" id="mobileMenuButton" aria-label="メニュー">
+                    <!-- ハンバーガーメニューの3本線 -->
                     <span></span>
                     <span></span>
                     <span></span>
@@ -55,25 +86,37 @@
         </div>
     </header>
 
-    <!-- ヒーローセクション -->
+    <!-- ============================================
+         ヒーローセクション（メインビジュアル）
+         ============================================ -->
     <section class="hero">
+        <!-- ヒーローコンテンツ：タイトルとボタンを中央配置 -->
         <div class="hero-content">
+            <!-- メインキャッチコピー -->
             <h2 class="hero-title">新しいショッピング体験</h2>
+            <!-- サブコピー -->
             <p class="hero-subtitle">モダンでスタイリッシュな商品を、シンプルに。</p>
+            <!-- CTAボタン：クリックで商品セクションへスムーズスクロール -->
             <button class="hero-button" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">
                 商品を見る
             </button>
         </div>
-        <!-- 背景グラデーション効果 -->
+        <!-- 背景グラデーション効果（CSSアニメーション） -->
         <div class="hero-gradient"></div>
     </section>
 
-    <!-- 商品フィルター -->
+    <!-- ============================================
+         商品フィルターセクション
+         ============================================ -->
     <section class="filter-section" id="products">
         <div class="container">
+            <!-- フィルターヘッダー：タイトルとフィルターコントロール -->
             <div class="filter-header">
+                <!-- セクションタイトル -->
                 <h2 class="section-title">商品一覧</h2>
+                <!-- フィルター＆ソートコントロール -->
                 <div class="filter-controls">
+                    <!-- カテゴリーフィルター：商品をカテゴリーで絞り込み -->
                     <select class="filter-select" id="categoryFilter" aria-label="カテゴリーフィルター">
                         <option value="all">全てのカテゴリー</option>
                         <option value="electronics">電子機器</option>
@@ -81,6 +124,7 @@
                         <option value="home">ホーム＆リビング</option>
                         <option value="sports">スポーツ</option>
                     </select>
+                    <!-- ソートフィルター：商品の並び順を変更 -->
                     <select class="filter-select" id="sortFilter" aria-label="並び替え">
                         <option value="default">おすすめ順</option>
                         <option value="price-low">価格の安い順</option>
@@ -92,63 +136,92 @@
         </div>
     </section>
 
-    <!-- 商品グリッド -->
+    <!-- ============================================
+         商品グリッドセクション
+         ============================================ -->
     <section class="products-section">
         <div class="container">
+            <!-- 商品グリッド：JavaScriptで動的に商品カードを生成 -->
+            <!-- CSS Gridで自動的にレスポンシブレイアウトを実現 -->
             <div class="products-grid" id="productsGrid">
-                <!-- 商品はJavaScriptで動的に生成 -->
+                <!-- 商品カードはscript.jsのdisplayProducts()関数で動的に生成されます -->
             </div>
         </div>
     </section>
 
-    <!-- ショッピングカート（モーダル） -->
+    <!-- ============================================
+         ショッピングカートモーダル
+         ============================================ -->
+    <!-- モーダル背景：画面全体をオーバーレイ表示 -->
     <div class="cart-modal" id="cartModal">
+        <!-- モーダルコンテンツ：右側からスライドイン -->
         <div class="cart-modal-content">
+            <!-- モーダルヘッダー：タイトルと閉じるボタン -->
             <div class="cart-modal-header">
                 <h3>ショッピングカート</h3>
+                <!-- 閉じるボタン：クリックでモーダルを閉じる -->
                 <button class="close-button" id="closeCartButton" aria-label="閉じる">
+                    <!-- ×印アイコン（SVG） -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
             </div>
+            <!-- カートアイテムリスト：スクロール可能 -->
             <div class="cart-items" id="cartItems">
-                <!-- カートアイテムはJavaScriptで動的に生成 -->
+                <!-- カート内の商品はscript.jsのupdateCartUI()関数で動的に生成されます -->
+                <!-- 空の場合は「カートは空です」と表示 -->
             </div>
+            <!-- カートフッター：合計金額とレジボタン -->
             <div class="cart-footer">
+                <!-- 合計金額表示 -->
                 <div class="cart-total">
                     <span>合計:</span>
                     <span class="cart-total-price" id="cartTotal">¥0</span>
                 </div>
+                <!-- レジに進むボタン -->
                 <button class="checkout-button">レジに進む</button>
             </div>
         </div>
     </div>
 
-    <!-- 商品詳細モーダル -->
+    <!-- ============================================
+         商品詳細モーダル
+         ============================================ -->
+    <!-- モーダル背景：画面中央にモーダルを表示 -->
     <div class="product-modal" id="productModal">
+        <!-- モーダルコンテンツ：中央に拡大表示 -->
         <div class="product-modal-content">
+            <!-- 閉じるボタン：右上に配置 -->
             <button class="close-button product-modal-close" id="closeProductModal" aria-label="閉じる">
+                <!-- ×印アイコン（SVG） -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
+            <!-- モーダルボディ：商品詳細情報を表示 -->
             <div class="product-modal-body" id="productModalBody">
-                <!-- 商品詳細はJavaScriptで動的に生成 -->
+                <!-- 商品詳細はscript.jsのshowProductDetail()関数で動的に生成されます -->
+                <!-- 商品画像、名前、価格、説明、カートに追加ボタンを含む -->
             </div>
         </div>
     </div>
 
-    <!-- フッター -->
+    <!-- ============================================
+         フッター（サイト下部）
+         ============================================ -->
     <footer class="footer">
         <div class="container">
+            <!-- フッターコンテンツ：4カラムのグリッドレイアウト -->
             <div class="footer-content">
+                <!-- フッターセクション1：ショップ情報 -->
                 <div class="footer-section">
                     <h4>CID OC Shop</h4>
                     <p>モダンでスタイリッシュな<br>オンラインショッピング体験</p>
                 </div>
+                <!-- フッターセクション2：主要リンク -->
                 <div class="footer-section">
                     <h4>リンク</h4>
                     <ul class="footer-links">
@@ -158,6 +231,7 @@
                         <li><a href="#contact">お問い合わせ</a></li>
                     </ul>
                 </div>
+                <!-- フッターセクション3：サポートリンク -->
                 <div class="footer-section">
                     <h4>サポート</h4>
                     <ul class="footer-links">
@@ -167,6 +241,7 @@
                         <li><a href="#">利用規約</a></li>
                     </ul>
                 </div>
+                <!-- フッターセクション4：SNSリンク -->
                 <div class="footer-section">
                     <h4>フォロー</h4>
                     <div class="social-links">
@@ -176,13 +251,17 @@
                     </div>
                 </div>
             </div>
+            <!-- フッター下部：コピーライト表示 -->
             <div class="footer-bottom">
                 <p>&copy; 2025 CID OC Shop. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScriptファイル -->
+    <!-- ============================================
+         JavaScriptファイルの読み込み
+         ============================================ -->
+    <!-- メインロジック：商品表示、カート機能、フィルタリング等を実装 -->
     <script src="script.js"></script>
 </body>
 </html>
