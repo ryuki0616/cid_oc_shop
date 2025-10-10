@@ -902,6 +902,18 @@ function setupEventListeners() {
         });
     });
     
+    // フッターリンクのクリックイベント（利用規約など）
+    const footerLinks = document.querySelectorAll('.footer-link');
+    footerLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); // デフォルトのアンカー動作を防止
+            const pageName = link.getAttribute('data-page');
+            if (pageName) {
+                switchPage(pageName);
+            }
+        });
+    });
+    
     // ブラウザの戻る/進むボタンに対応
     window.addEventListener('hashchange', () => {
         const hash = window.location.hash.substring(1); // #を除去
