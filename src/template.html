@@ -48,8 +48,8 @@
                 
                 <!-- メインナビゲーションメニュー（デスクトップ用） -->
                 <ul class="nav-menu">
-                   <!-- ホームリンク（現在アクティブ） -->
-                    <li><a href="index.html" class="nav-link active">ホーム</a></li>
+                   <!-- ホームリンク -->
+                    <li><a href="index.html" class="nav-link">ホーム</a></li>
                     <!-- 商品一覧ページへのリンク -->
                     <li><a href="products.html" class="nav-link">商品一覧</a></li>
                     <!-- 注文履歴ページへのリンク -->
@@ -89,52 +89,11 @@
     </header>
 
     <!-- ============================================
-         メインコンテンツエリア（ホームページ）
+         メインコンテンツエリア（ページコンテンツ）
          ============================================ -->
     <main class="main-content">
-        <!-- ヒーローセクション（メインビジュアル） -->
-        <div class="hero">
-            <!-- ヒーローコンテンツ：タイトルとボタンを中央配置 -->
-            <div class="hero-content">
-                <!-- メインキャッチコピー -->
-                <h2 class="hero-title">新しいショッピング体験</h2>
-                <!-- サブコピー -->
-                <p class="hero-subtitle">モダンでスタイリッシュな商品を、シンプルに。</p>
-                <!-- CTAボタン：クリックで商品ページへ移動 -->
-                <button class="hero-button" onclick="window.location.href='products.html'">
-                    商品を見る
-                </button>
-            </div>
-            <!-- 背景グラデーション効果（CSSアニメーション） -->
-            <div class="hero-gradient"></div>
-        </div>
-
-        <!-- ホームページの特徴セクション -->
-        <div class="home-features">
-            <div class="container">
-                <h2 class="section-title">CID OC Shopの特徴</h2>
-                <div class="features-grid">
-                    <!-- 特徴1 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <h3>厳選された商品</h3>
-                        <p>品質と機能性を兼ね備えた28以上の商品を取り揃えています</p>
-                    </div>
-                    <!-- 特徴2 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🚚</div>
-                        <h3>迅速な配送</h3>
-                        <p>ご注文から2-3営業日でお届け。送料無料キャンペーン実施中</p>
-                    </div>
-                    <!-- 特徴3 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>安心の保証</h3>
-                        <p>30日間返品保証と安全な決済システムで安心してお買い物</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- ページコンテンツはここに挿入されます -->
+        {{CONTENT}}
     </main>
 
     <!-- ============================================

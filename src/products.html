@@ -11,13 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO対策：ページの説明文（検索結果に表示される） -->
-    <meta name="description" content="CID OC Shop - モダンでスタイリッシュなオンラインショップ">
+    <meta name="description" content="CID OC Shop - 厳選された商品一覧。電子機器、ファッション、ホーム＆リビング、スポーツの4カテゴリーから28以上の商品を提供">
     
     <!-- SEO対策：キーワード設定 -->
-    <meta name="keywords" content="オンラインショップ,ECサイト,ショッピング">
+    <meta name="keywords" content="商品一覧,オンラインショップ,電子機器,ファッション,ホーム,スポーツ">
     
     <!-- ブラウザタブに表示されるタイトル -->
-    <title>CID OC Shop - Modern Online Shopping</title>
+    <title>商品一覧 - CID OC Shop</title>
     
     <!-- ============================================
          外部リソース読み込み
@@ -48,10 +48,10 @@
                 
                 <!-- メインナビゲーションメニュー（デスクトップ用） -->
                 <ul class="nav-menu">
-                   <!-- ホームリンク（現在アクティブ） -->
-                    <li><a href="index.html" class="nav-link active">ホーム</a></li>
-                    <!-- 商品一覧ページへのリンク -->
-                    <li><a href="products.html" class="nav-link">商品一覧</a></li>
+                   <!-- ホームリンク -->
+                    <li><a href="index.html" class="nav-link">ホーム</a></li>
+                    <!-- 商品一覧ページへのリンク（現在アクティブ） -->
+                    <li><a href="products.html" class="nav-link active">商品一覧</a></li>
                     <!-- 注文履歴ページへのリンク -->
                     <li><a href="orders.html" class="nav-link">注文履歴</a></li>
                     <!-- ショップについてページへのリンク -->
@@ -89,49 +89,45 @@
     </header>
 
     <!-- ============================================
-         メインコンテンツエリア（ホームページ）
+         メインコンテンツエリア（商品一覧ページ）
          ============================================ -->
     <main class="main-content">
-        <!-- ヒーローセクション（メインビジュアル） -->
-        <div class="hero">
-            <!-- ヒーローコンテンツ：タイトルとボタンを中央配置 -->
-            <div class="hero-content">
-                <!-- メインキャッチコピー -->
-                <h2 class="hero-title">新しいショッピング体験</h2>
-                <!-- サブコピー -->
-                <p class="hero-subtitle">モダンでスタイリッシュな商品を、シンプルに。</p>
-                <!-- CTAボタン：クリックで商品ページへ移動 -->
-                <button class="hero-button" onclick="window.location.href='products.html'">
-                    商品を見る
-                </button>
+        <!-- 商品フィルターセクション -->
+        <div class="filter-section">
+            <div class="container">
+                <!-- フィルターヘッダー：タイトルとフィルターコントロール -->
+                <div class="filter-header">
+                    <!-- セクションタイトル -->
+                    <h2 class="section-title">商品一覧</h2>
+                    <!-- フィルター＆ソートコントロール -->
+                    <div class="filter-controls">
+                        <!-- カテゴリーフィルター：商品をカテゴリーで絞り込み -->
+                        <select class="filter-select" id="categoryFilter" aria-label="カテゴリーフィルター">
+                            <option value="all">全てのカテゴリー</option>
+                            <option value="electronics">電子機器</option>
+                            <option value="fashion">ファッション</option>
+                            <option value="home">ホーム＆リビング</option>
+                            <option value="sports">スポーツ</option>
+                        </select>
+                        <!-- ソートフィルター：商品の並び順を変更 -->
+                        <select class="filter-select" id="sortFilter" aria-label="並び替え">
+                            <option value="default">おすすめ順</option>
+                            <option value="price-low">価格の安い順</option>
+                            <option value="price-high">価格の高い順</option>
+                            <option value="name">名前順</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            <!-- 背景グラデーション効果（CSSアニメーション） -->
-            <div class="hero-gradient"></div>
         </div>
 
-        <!-- ホームページの特徴セクション -->
-        <div class="home-features">
+        <!-- 商品グリッドセクション -->
+        <div class="products-section">
             <div class="container">
-                <h2 class="section-title">CID OC Shopの特徴</h2>
-                <div class="features-grid">
-                    <!-- 特徴1 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <h3>厳選された商品</h3>
-                        <p>品質と機能性を兼ね備えた28以上の商品を取り揃えています</p>
-                    </div>
-                    <!-- 特徴2 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🚚</div>
-                        <h3>迅速な配送</h3>
-                        <p>ご注文から2-3営業日でお届け。送料無料キャンペーン実施中</p>
-                    </div>
-                    <!-- 特徴3 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>安心の保証</h3>
-                        <p>30日間返品保証と安全な決済システムで安心してお買い物</p>
-                    </div>
+                <!-- 商品グリッド：JavaScriptで動的に商品カードを生成 -->
+                <!-- CSS Gridで自動的にレスポンシブレイアウトを実現 -->
+                <div class="products-grid" id="productsGrid">
+                    <!-- 商品カードはscript.jsのdisplayProducts()関数で動的に生成されます -->
                 </div>
             </div>
         </div>

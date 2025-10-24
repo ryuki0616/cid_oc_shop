@@ -11,13 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO対策：ページの説明文（検索結果に表示される） -->
-    <meta name="description" content="CID OC Shop - モダンでスタイリッシュなオンラインショップ">
+    <meta name="description" content="CID OC Shopお問い合わせ - 商品や注文に関するご質問、お問い合わせはこちらから。24時間以内にご返信いたします">
     
     <!-- SEO対策：キーワード設定 -->
-    <meta name="keywords" content="オンラインショップ,ECサイト,ショッピング">
+    <meta name="keywords" content="お問い合わせ,サポート,商品について,注文について,配送について">
     
     <!-- ブラウザタブに表示されるタイトル -->
-    <title>CID OC Shop - Modern Online Shopping</title>
+    <title>お問い合わせ - CID OC Shop</title>
     
     <!-- ============================================
          外部リソース読み込み
@@ -48,16 +48,16 @@
                 
                 <!-- メインナビゲーションメニュー（デスクトップ用） -->
                 <ul class="nav-menu">
-                   <!-- ホームリンク（現在アクティブ） -->
-                    <li><a href="index.html" class="nav-link active">ホーム</a></li>
+                   <!-- ホームリンク -->
+                    <li><a href="index.html" class="nav-link">ホーム</a></li>
                     <!-- 商品一覧ページへのリンク -->
                     <li><a href="products.html" class="nav-link">商品一覧</a></li>
                     <!-- 注文履歴ページへのリンク -->
                     <li><a href="orders.html" class="nav-link">注文履歴</a></li>
                     <!-- ショップについてページへのリンク -->
                     <li><a href="about.html" class="nav-link">ショップについて</a></li>
-                    <!-- お問い合わせページへのリンク -->
-                    <li><a href="contact.html" class="nav-link">お問い合わせ</a></li>
+                    <!-- お問い合わせページへのリンク（現在アクティブ） -->
+                    <li><a href="contact.html" class="nav-link active">お問い合わせ</a></li>
                 </ul>
                 
                 <!-- ショッピングカートボタン -->
@@ -89,48 +89,80 @@
     </header>
 
     <!-- ============================================
-         メインコンテンツエリア（ホームページ）
+         メインコンテンツエリア（お問い合わせページ）
          ============================================ -->
     <main class="main-content">
-        <!-- ヒーローセクション（メインビジュアル） -->
-        <div class="hero">
-            <!-- ヒーローコンテンツ：タイトルとボタンを中央配置 -->
-            <div class="hero-content">
-                <!-- メインキャッチコピー -->
-                <h2 class="hero-title">新しいショッピング体験</h2>
-                <!-- サブコピー -->
-                <p class="hero-subtitle">モダンでスタイリッシュな商品を、シンプルに。</p>
-                <!-- CTAボタン：クリックで商品ページへ移動 -->
-                <button class="hero-button" onclick="window.location.href='products.html'">
-                    商品を見る
-                </button>
-            </div>
-            <!-- 背景グラデーション効果（CSSアニメーション） -->
-            <div class="hero-gradient"></div>
-        </div>
-
-        <!-- ホームページの特徴セクション -->
-        <div class="home-features">
+        <div class="contact-page">
             <div class="container">
-                <h2 class="section-title">CID OC Shopの特徴</h2>
-                <div class="features-grid">
-                    <!-- 特徴1 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <h3>厳選された商品</h3>
-                        <p>品質と機能性を兼ね備えた28以上の商品を取り揃えています</p>
-                    </div>
-                    <!-- 特徴2 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🚚</div>
-                        <h3>迅速な配送</h3>
-                        <p>ご注文から2-3営業日でお届け。送料無料キャンペーン実施中</p>
-                    </div>
-                    <!-- 特徴3 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>安心の保証</h3>
-                        <p>30日間返品保証と安全な決済システムで安心してお買い物</p>
+                <!-- ページヘッダー -->
+                <div class="page-header">
+                    <h2 class="section-title">お問い合わせ</h2>
+                    <p class="page-subtitle">ご質問やご要望がございましたら、お気軽にお問い合わせください。</p>
+                </div>
+
+                <!-- お問い合わせフォーム -->
+                <div class="contact-content">
+                    <form class="contact-form" id="contactForm">
+                        <!-- 名前 -->
+                        <div class="form-group">
+                            <label for="contactName">お名前 <span class="required">*</span></label>
+                            <input type="text" id="contactName" name="name" class="form-input" placeholder="山田 太郎" required>
+                        </div>
+
+                        <!-- メールアドレス -->
+                        <div class="form-group">
+                            <label for="contactEmail">メールアドレス <span class="required">*</span></label>
+                            <input type="email" id="contactEmail" name="email" class="form-input" placeholder="example@email.com" required>
+                        </div>
+
+                        <!-- 電話番号 -->
+                        <div class="form-group">
+                            <label for="contactPhone">電話番号</label>
+                            <input type="tel" id="contactPhone" name="phone" class="form-input" placeholder="090-1234-5678">
+                        </div>
+
+                        <!-- お問い合わせ種類 -->
+                        <div class="form-group">
+                            <label for="contactType">お問い合わせ種類 <span class="required">*</span></label>
+                            <select id="contactType" name="type" class="form-select" required>
+                                <option value="">選択してください</option>
+                                <option value="product">商品について</option>
+                                <option value="order">注文について</option>
+                                <option value="delivery">配送について</option>
+                                <option value="return">返品・交換について</option>
+                                <option value="other">その他</option>
+                            </select>
+                        </div>
+
+                        <!-- メッセージ -->
+                        <div class="form-group">
+                            <label for="contactMessage">お問い合わせ内容 <span class="required">*</span></label>
+                            <textarea id="contactMessage" name="message" class="form-textarea" rows="6" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+                        </div>
+
+                        <!-- 送信ボタン -->
+                        <button type="submit" class="form-submit-button">送信する</button>
+                    </form>
+
+                    <!-- お問い合わせ情報 -->
+                    <div class="contact-info">
+                        <div class="info-card">
+                            <div class="info-icon">📧</div>
+                            <h4>メール</h4>
+                            <p>support@cidocshop.com</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon">📞</div>
+                            <h4>電話</h4>
+                            <p>0120-XXX-XXX</p>
+                            <span class="info-hours">営業時間: 10:00-18:00（平日）</span>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon">⏰</div>
+                            <h4>返信時間</h4>
+                            <p>24時間以内</p>
+                            <span class="info-hours">（営業日ベース）</span>
+                        </div>
                     </div>
                 </div>
             </div>

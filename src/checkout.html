@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- ============================================
+         ページメタ情報
+         ============================================ -->
+    <!-- 文字コード設定（UTF-8：日本語対応） -->
+    <meta charset="UTF-8">
+    
+    <!-- レスポンシブデザイン設定（モバイル対応） -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO対策：ページの説明文（検索結果に表示される） -->
+    <meta name="description" content="CID OC Shop決済ページ - お支払い・配送情報の入力。安全な決済システムで安心してお買い物">
+    
+    <!-- SEO対策：キーワード設定 -->
+    <meta name="keywords" content="決済,お支払い,配送情報,クレジットカード,銀行振込,コンビニ決済">
+    
+    <!-- ブラウザタブに表示されるタイトル -->
+    <title>お支払い・配送情報 - CID OC Shop</title>
+    
+    <!-- ============================================
+         外部リソース読み込み
+         ============================================ -->
+    <!-- Googleフォント：読み込み速度向上のための事前接続 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Googleフォント：Noto Sans JP（日本語）とInter（英語）を読み込み -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- メインスタイルシート読み込み -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ============================================
+         ヘッダーナビゲーション（固定ヘッダー）
+         ============================================ -->
+    <header class="header">
+        <!-- コンテナ：最大幅1200pxで中央配置 -->
+        <div class="container">
+            <!-- ナビゲーションバー：ロゴ、メニュー、カートを横並び -->
+            <nav class="nav">
+                <!-- ショップロゴ -->
+                <div class="logo">
+                    <h1><a href="index.html">CID OC Shop</a></h1>
+                </div>
+                
+                <!-- メインナビゲーションメニュー（デスクトップ用） -->
+                <ul class="nav-menu">
+                   <!-- ホームリンク -->
+                    <li><a href="index.html" class="nav-link">ホーム</a></li>
+                    <!-- 商品一覧ページへのリンク -->
+                    <li><a href="products.html" class="nav-link">商品一覧</a></li>
+                    <!-- 注文履歴ページへのリンク -->
+                    <li><a href="orders.html" class="nav-link">注文履歴</a></li>
+                    <!-- ショップについてページへのリンク -->
+                    <li><a href="about.html" class="nav-link">ショップについて</a></li>
+                    <!-- お問い合わせページへのリンク -->
+                    <li><a href="contact.html" class="nav-link">お問い合わせ</a></li>
+                </ul>
+                
+                <!-- ショッピングカートボタン -->
+                <div class="cart-icon-wrapper">
+                    <!-- カートボタン（クリックでカートモーダルを開く） -->
+                    <button class="cart-button" id="cartButton" aria-label="ショッピングカート">
+                        <!-- カートアイコン（SVG） -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <!-- カートの車輪部分 -->
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <!-- カートの本体部分 -->
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <!-- カート内商品数を表示（JavaScriptで更新） -->
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+                
+                <!-- モバイルメニューボタン（768px以下で表示） -->
+                <button class="mobile-menu-button" id="mobileMenuButton" aria-label="メニュー">
+                    <!-- ハンバーガーメニューの3本線 -->
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============================================
+         メインコンテンツエリア（決済ページ）
+         ============================================ -->
+    <main class="main-content">
+        <div class="checkout-page">
+            <div class="container">
+                <!-- ページヘッダー -->
+                <div class="page-header">
+                    <h2 class="section-title">お支払い・配送情報</h2>
+                    <p class="page-subtitle">ご注文内容をご確認の上、配送先情報と決済方法を入力してください。</p>
+                </div>
+
+                <!-- 決済コンテンツ -->
+                <div class="checkout-content">
+                    <!-- 左側：フォーム -->
+                    <div class="checkout-forms">
+                        <!-- ステップインジケーター -->
+                        <div class="checkout-steps">
+                            <div class="step active" data-step="1">
+                                <span class="step-number">1</span>
+                                <span class="step-label">配送先情報</span>
+                            </div>
+                            <div class="step" data-step="2">
+                                <span class="step-number">2</span>
+                                <span class="step-label">支払い方法</span>
+                            </div>
+                            <div class="step" data-step="3">
+                                <span class="step-number">3</span>
+                                <span class="step-label">確認</span>
+                            </div>
+                        </div>
+
+                        <!-- ステップ1: 配送先情報 -->
+                        <div class="checkout-step-content" id="checkout-step-1">
+                            <h3>配送先情報</h3>
+                            <form id="shippingForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkoutName">お名前 <span class="required">*</span></label>
+                                        <input type="text" id="checkoutName" class="form-input" placeholder="山田 太郎" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="checkoutNameKana">お名前（カナ） <span class="required">*</span></label>
+                                        <input type="text" id="checkoutNameKana" class="form-input" placeholder="ヤマダ タロウ" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkoutPostal">郵便番号 <span class="required">*</span></label>
+                                        <input type="text" id="checkoutPostal" class="form-input" placeholder="123-4567" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="checkoutPrefecture">都道府県 <span class="required">*</span></label>
+                                        <select id="checkoutPrefecture" class="form-select" required>
+                                            <option value="">選択してください</option>
+                                            <option value="東京都">東京都</option>
+                                            <option value="神奈川県">神奈川県</option>
+                                            <option value="埼玉県">埼玉県</option>
+                                            <option value="千葉県">千葉県</option>
+                                            <option value="その他">その他</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="checkoutAddress">住所 <span class="required">*</span></label>
+                                    <input type="text" id="checkoutAddress" class="form-input" placeholder="市区町村番地" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="checkoutBuilding">建物名・部屋番号</label>
+                                    <input type="text" id="checkoutBuilding" class="form-input" placeholder="マンション名 101号室">
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkoutPhone">電話番号 <span class="required">*</span></label>
+                                        <input type="tel" id="checkoutPhone" class="form-input" placeholder="090-1234-5678" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="checkoutEmail">メールアドレス <span class="required">*</span></label>
+                                        <input type="email" id="checkoutEmail" class="form-input" placeholder="example@email.com" required>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="checkout-next-button" onclick="nextCheckoutStep(2)">支払い方法へ進む</button>
+                            </form>
+                        </div>
+
+                        <!-- ステップ2: 支払い方法 -->
+                        <div class="checkout-step-content" id="checkout-step-2" style="display: none;">
+                            <h3>お支払い方法</h3>
+                            <div class="payment-methods">
+                                <label class="payment-method">
+                                    <input type="radio" name="paymentMethod" value="credit" checked>
+                                    <div class="payment-method-content">
+                                        <span class="payment-icon">💳</span>
+                                        <div>
+                                            <strong>クレジットカード</strong>
+                                            <p>VISA / MasterCard / JCB / AMEX</p>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label class="payment-method">
+                                    <input type="radio" name="paymentMethod" value="bank">
+                                    <div class="payment-method-content">
+                                        <span class="payment-icon">🏦</span>
+                                        <div>
+                                            <strong>銀行振込</strong>
+                                            <p>ご注文後、振込先をメールでお知らせします</p>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label class="payment-method">
+                                    <input type="radio" name="paymentMethod" value="convenience">
+                                    <div class="payment-method-content">
+                                        <span class="payment-icon">🏪</span>
+                                        <div>
+                                            <strong>コンビニ決済</strong>
+                                            <p>セブン / ローソン / ファミマ</p>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label class="payment-method">
+                                    <input type="radio" name="paymentMethod" value="cod">
+                                    <div class="payment-method-content">
+                                        <span class="payment-icon">📦</span>
+                                        <div>
+                                            <strong>代金引換</strong>
+                                            <p>商品受け取り時にお支払い（手数料330円）</p>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="checkout-buttons">
+                                <button type="button" class="checkout-back-button" onclick="nextCheckoutStep(1)">戻る</button>
+                                <button type="button" class="checkout-next-button" onclick="nextCheckoutStep(3)">確認画面へ進む</button>
+                            </div>
+                        </div>
+
+                        <!-- ステップ3: 確認 -->
+                        <div class="checkout-step-content" id="checkout-step-3" style="display: none;">
+                            <h3>ご注文内容の確認</h3>
+                            
+                            <div class="checkout-confirm">
+                                <div class="confirm-section">
+                                    <h4>配送先情報</h4>
+                                    <div id="confirmShipping" class="confirm-details"></div>
+                                </div>
+
+                                <div class="confirm-section">
+                                    <h4>お支払い方法</h4>
+                                    <div id="confirmPayment" class="confirm-details"></div>
+                                </div>
+                            </div>
+
+                            <div class="checkout-buttons">
+                                <button type="button" class="checkout-back-button" onclick="nextCheckoutStep(2)">戻る</button>
+                                <button type="button" class="checkout-submit-button" onclick="submitOrder()">注文を確定する</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右側：注文サマリー -->
+                    <div class="checkout-summary">
+                        <h3>ご注文内容</h3>
+                        <div class="summary-items" id="checkoutSummaryItems">
+                            <!-- JavaScriptで動的に生成 -->
+                        </div>
+
+                        <div class="summary-pricing">
+                            <div class="pricing-row">
+                                <span>小計</span>
+                                <span id="summarySubtotal">¥0</span>
+                            </div>
+                            <div class="pricing-row">
+                                <span>配送料</span>
+                                <span id="summaryShipping">¥0</span>
+                            </div>
+                            <div class="pricing-row total">
+                                <span>合計</span>
+                                <span id="summaryTotal">¥0</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-note">
+                            <p>※ 5,000円以上のご注文で送料無料</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ============================================
+         ショッピングカートモーダル
+         ============================================ -->
+    <!-- モーダル背景：画面全体をオーバーレイ表示 -->
+    <div class="cart-modal" id="cartModal">
+        <!-- モーダルコンテンツ：右側からスライドイン -->
+        <div class="cart-modal-content">
+            <!-- モーダルヘッダー：タイトルと閉じるボタン -->
+            <div class="cart-modal-header">
+                <h3>ショッピングカート</h3>
+                <!-- 閉じるボタン：クリックでモーダルを閉じる -->
+                <button class="close-button" id="closeCartButton" aria-label="閉じる">
+                    <!-- ×印アイコン（SVG） -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <!-- カートアイテムリスト：スクロール可能 -->
+            <div class="cart-items" id="cartItems">
+                <!-- カート内の商品はscript.jsのupdateCartUI()関数で動的に生成されます -->
+                <!-- 空の場合は「カートは空です」と表示 -->
+            </div>
+            <!-- カートフッター：合計金額とレジボタン -->
+            <div class="cart-footer">
+                <!-- 合計金額表示 -->
+                <div class="cart-total">
+                    <span>合計:</span>
+                    <span class="cart-total-price" id="cartTotal">¥0</span>
+                </div>
+                <!-- レジに進むボタン：クリックで決済ページへ移動 -->
+                <button class="checkout-button" id="proceedToCheckout">レジに進む</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         商品詳細モーダル
+         ============================================ -->
+    <!-- モーダル背景：画面中央にモーダルを表示 -->
+    <div class="product-modal" id="productModal">
+        <!-- モーダルコンテンツ：中央に拡大表示 -->
+        <div class="product-modal-content">
+            <!-- 閉じるボタン：右上に配置 -->
+            <button class="close-button product-modal-close" id="closeProductModal" aria-label="閉じる">
+                <!-- ×印アイコン（SVG） -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <!-- モーダルボディ：商品詳細情報を表示 -->
+            <div class="product-modal-body" id="productModalBody">
+                <!-- 商品詳細はscript.jsのshowProductDetail()関数で動的に生成されます -->
+                <!-- 商品画像、名前、価格、説明、カートに追加ボタンを含む -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         フッター（サイト下部）
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <!-- フッターコンテンツ：4カラムのグリッドレイアウト -->
+            <div class="footer-content">
+                <!-- フッターセクション1：ショップ情報 -->
+                <div class="footer-section">
+                    <h4>CID OC Shop</h4>
+                    <p>モダンでスタイリッシュな<br>オンラインショッピング体験</p>
+                </div>
+                <!-- フッターセクション2：主要リンク -->
+                <div class="footer-section">
+                    <h4>リンク</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">ホーム</a></li>
+                        <li><a href="products.html">商品一覧</a></li>
+                        <li><a href="about.html">ショップについて</a></li>
+                        <li><a href="contact.html">お問い合わせ</a></li>
+                    </ul>
+                </div>
+                <!-- フッターセクション3：サポートリンク -->
+                <div class="footer-section">
+                    <h4>サポート</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">よくある質問</a></li>
+                        <li><a href="#">配送について</a></li>
+                        <li><a href="#">返品・交換</a></li>
+                        <li><a href="terms.html">利用規約</a></li>
+                    </ul>
+                </div>
+                <!-- フッターセクション4：外部リンク -->
+                <div class="footer-section">
+                    <h4>フォロー</h4>
+                    <div class="social-links">
+                        <a href="https://x.com/cid_chuo" target="_blank" rel="noopener noreferrer" aria-label="Twitter">Twitter</a>
+                        <a href="https://www.chuo.ac.jp/cid/" target="_blank" rel="noopener noreferrer" aria-label="ホームページ">ホームページ</a>
+                    </div>
+                </div>
+            </div>
+            <!-- フッター下部：コピーライト表示 -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 CID OC Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JavaScriptファイルの読み込み
+         ============================================ -->
+    <!-- メインロジック：商品表示、カート機能、フィルタリング等を実装 -->
+    <script src="script.js"></script>
+</body>
+</html>

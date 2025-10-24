@@ -11,13 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO対策：ページの説明文（検索結果に表示される） -->
-    <meta name="description" content="CID OC Shop - モダンでスタイリッシュなオンラインショップ">
+    <meta name="description" content="CID OC Shopについて - モダンでスタイリッシュな商品を提供するオンラインショップのビジョンと品質へのこだわり">
     
     <!-- SEO対策：キーワード設定 -->
-    <meta name="keywords" content="オンラインショップ,ECサイト,ショッピング">
+    <meta name="keywords" content="ショップについて,ビジョン,品質,お客様サポート,オンラインショップ">
     
     <!-- ブラウザタブに表示されるタイトル -->
-    <title>CID OC Shop - Modern Online Shopping</title>
+    <title>ショップについて - CID OC Shop</title>
     
     <!-- ============================================
          外部リソース読み込み
@@ -48,14 +48,14 @@
                 
                 <!-- メインナビゲーションメニュー（デスクトップ用） -->
                 <ul class="nav-menu">
-                   <!-- ホームリンク（現在アクティブ） -->
-                    <li><a href="index.html" class="nav-link active">ホーム</a></li>
+                   <!-- ホームリンク -->
+                    <li><a href="index.html" class="nav-link">ホーム</a></li>
                     <!-- 商品一覧ページへのリンク -->
                     <li><a href="products.html" class="nav-link">商品一覧</a></li>
                     <!-- 注文履歴ページへのリンク -->
                     <li><a href="orders.html" class="nav-link">注文履歴</a></li>
-                    <!-- ショップについてページへのリンク -->
-                    <li><a href="about.html" class="nav-link">ショップについて</a></li>
+                    <!-- ショップについてページへのリンク（現在アクティブ） -->
+                    <li><a href="about.html" class="nav-link active">ショップについて</a></li>
                     <!-- お問い合わせページへのリンク -->
                     <li><a href="contact.html" class="nav-link">お問い合わせ</a></li>
                 </ul>
@@ -89,48 +89,86 @@
     </header>
 
     <!-- ============================================
-         メインコンテンツエリア（ホームページ）
+         メインコンテンツエリア（ショップについてページ）
          ============================================ -->
     <main class="main-content">
-        <!-- ヒーローセクション（メインビジュアル） -->
-        <div class="hero">
-            <!-- ヒーローコンテンツ：タイトルとボタンを中央配置 -->
-            <div class="hero-content">
-                <!-- メインキャッチコピー -->
-                <h2 class="hero-title">新しいショッピング体験</h2>
-                <!-- サブコピー -->
-                <p class="hero-subtitle">モダンでスタイリッシュな商品を、シンプルに。</p>
-                <!-- CTAボタン：クリックで商品ページへ移動 -->
-                <button class="hero-button" onclick="window.location.href='products.html'">
-                    商品を見る
-                </button>
-            </div>
-            <!-- 背景グラデーション効果（CSSアニメーション） -->
-            <div class="hero-gradient"></div>
-        </div>
-
-        <!-- ホームページの特徴セクション -->
-        <div class="home-features">
+        <div class="about-page">
             <div class="container">
-                <h2 class="section-title">CID OC Shopの特徴</h2>
-                <div class="features-grid">
-                    <!-- 特徴1 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <h3>厳選された商品</h3>
-                        <p>品質と機能性を兼ね備えた28以上の商品を取り揃えています</p>
+                <!-- ページヘッダー -->
+                <div class="page-header">
+                    <h2 class="section-title">ショップについて</h2>
+                    <p class="page-subtitle">モダンでスタイリッシュな商品を、シンプルに。</p>
+                </div>
+
+                <!-- ショップコンセプト -->
+                <div class="about-content">
+                    <!-- コンセプトカード -->
+                    <div class="concept-card">
+                        <div class="concept-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 16v-4"></path>
+                                <path d="M12 8h.01"></path>
+                            </svg>
+                        </div>
+                        <h3>私たちのビジョン</h3>
+                        <p>
+                            CID OC Shopは、シンプルさと機能性を兼ね備えた商品を提供することで、
+                            お客様の日常をより豊かにすることを目指しています。
+                            モダンなデザインと高品質な製品で、新しいライフスタイルを提案します。
+                        </p>
                     </div>
-                    <!-- 特徴2 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🚚</div>
-                        <h3>迅速な配送</h3>
-                        <p>ご注文から2-3営業日でお届け。送料無料キャンペーン実施中</p>
+
+                    <div class="concept-card">
+                        <div class="concept-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                <path d="M9 12l2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <h3>品質へのこだわり</h3>
+                        <p>
+                            全ての商品は厳選された素材を使用し、細部まで丁寧に作られています。
+                            品質管理を徹底し、長く愛用できる製品だけをお届けします。
+                            お客様の満足度が私たちの最優先事項です。
+                        </p>
                     </div>
-                    <!-- 特徴3 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>安心の保証</h3>
-                        <p>30日間返品保証と安全な決済システムで安心してお買い物</p>
+
+                    <div class="concept-card">
+                        <div class="concept-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3>お客様サポート</h3>
+                        <p>
+                            購入前のご相談から、アフターサービスまで、専門スタッフが丁寧にサポートいたします。
+                            ご不明な点がございましたら、お気軽にお問い合わせください。
+                            お客様の声を大切にしています。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 統計情報 -->
+                <div class="about-stats-section">
+                    <h3>私たちの実績</h3>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <div class="stat-number">28+</div>
+                            <div class="stat-label">厳選された商品</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">カテゴリー</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">顧客満足度</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2-3日</div>
+                            <div class="stat-label">平均配送日数</div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -11,13 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO対策：ページの説明文（検索結果に表示される） -->
-    <meta name="description" content="CID OC Shop - モダンでスタイリッシュなオンラインショップ">
+    <meta name="description" content="CID OC Shop注文履歴 - 過去のご注文内容を確認できます。注文番号、商品詳細、配送状況を一覧で表示">
     
     <!-- SEO対策：キーワード設定 -->
-    <meta name="keywords" content="オンラインショップ,ECサイト,ショッピング">
+    <meta name="keywords" content="注文履歴,過去の注文,注文確認,配送状況">
     
     <!-- ブラウザタブに表示されるタイトル -->
-    <title>CID OC Shop - Modern Online Shopping</title>
+    <title>注文履歴 - CID OC Shop</title>
     
     <!-- ============================================
          外部リソース読み込み
@@ -48,12 +48,12 @@
                 
                 <!-- メインナビゲーションメニュー（デスクトップ用） -->
                 <ul class="nav-menu">
-                   <!-- ホームリンク（現在アクティブ） -->
-                    <li><a href="index.html" class="nav-link active">ホーム</a></li>
+                   <!-- ホームリンク -->
+                    <li><a href="index.html" class="nav-link">ホーム</a></li>
                     <!-- 商品一覧ページへのリンク -->
                     <li><a href="products.html" class="nav-link">商品一覧</a></li>
-                    <!-- 注文履歴ページへのリンク -->
-                    <li><a href="orders.html" class="nav-link">注文履歴</a></li>
+                    <!-- 注文履歴ページへのリンク（現在アクティブ） -->
+                    <li><a href="orders.html" class="nav-link active">注文履歴</a></li>
                     <!-- ショップについてページへのリンク -->
                     <li><a href="about.html" class="nav-link">ショップについて</a></li>
                     <!-- お問い合わせページへのリンク -->
@@ -89,49 +89,21 @@
     </header>
 
     <!-- ============================================
-         メインコンテンツエリア（ホームページ）
+         メインコンテンツエリア（注文履歴ページ）
          ============================================ -->
     <main class="main-content">
-        <!-- ヒーローセクション（メインビジュアル） -->
-        <div class="hero">
-            <!-- ヒーローコンテンツ：タイトルとボタンを中央配置 -->
-            <div class="hero-content">
-                <!-- メインキャッチコピー -->
-                <h2 class="hero-title">新しいショッピング体験</h2>
-                <!-- サブコピー -->
-                <p class="hero-subtitle">モダンでスタイリッシュな商品を、シンプルに。</p>
-                <!-- CTAボタン：クリックで商品ページへ移動 -->
-                <button class="hero-button" onclick="window.location.href='products.html'">
-                    商品を見る
-                </button>
-            </div>
-            <!-- 背景グラデーション効果（CSSアニメーション） -->
-            <div class="hero-gradient"></div>
-        </div>
-
-        <!-- ホームページの特徴セクション -->
-        <div class="home-features">
+        <div class="orders-page">
             <div class="container">
-                <h2 class="section-title">CID OC Shopの特徴</h2>
-                <div class="features-grid">
-                    <!-- 特徴1 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <h3>厳選された商品</h3>
-                        <p>品質と機能性を兼ね備えた28以上の商品を取り揃えています</p>
-                    </div>
-                    <!-- 特徴2 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🚚</div>
-                        <h3>迅速な配送</h3>
-                        <p>ご注文から2-3営業日でお届け。送料無料キャンペーン実施中</p>
-                    </div>
-                    <!-- 特徴3 -->
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>安心の保証</h3>
-                        <p>30日間返品保証と安全な決済システムで安心してお買い物</p>
-                    </div>
+                <!-- ページヘッダー -->
+                <div class="page-header">
+                    <h2 class="section-title">注文履歴</h2>
+                    <p class="page-subtitle">過去のご注文内容を確認できます。</p>
+                </div>
+
+                <!-- 注文履歴リスト -->
+                <div class="orders-content" id="ordersContent">
+                    <!-- JavaScriptで動的に生成 -->
+                    <!-- 注文がない場合は「注文履歴がありません」と表示 -->
                 </div>
             </div>
         </div>
