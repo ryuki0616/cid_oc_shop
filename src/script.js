@@ -303,9 +303,12 @@ let currentFilters = {
  * 4. スクロール時の動的効果を設定
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. 商品を表示
+    // 1. 商品を表示（商品一覧ページのみ）
     // products配列の全商品をグリッドに表示
-    displayProducts(products);
+    const productsGrid = document.getElementById('productsGrid');
+    if (productsGrid) {
+        displayProducts(products);
+    }
     
     // 2. カートをローカルストレージから読み込み
     // 前回の訪問時にカートに入れた商品を復元
@@ -321,6 +324,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. ナビゲーションのスクロール効果
     // スクロール時にヘッダーの影を変更する処理
     setupScrollEffects();
+    
+    // 5. ページ固有の初期化
+    initializePageSpecificFeatures();
 });
 
 // ============================================
@@ -947,27 +953,7 @@ function setupEventListeners() {
     // お問い合わせフォームの送信処理
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // デフォルトの送信を防止
-            
-            // フォームデータを取得（実際はサーバーに送信）
-            const formData = new FormData(contactForm);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                type: formData.get('type'),
-                message: formData.get('message')
-            };
-            
-            // 送信成功のメッセージを表示
-            alert('お問い合わせを受け付けました。\n担当者より24時間以内にご連絡させていただきます。');
-            
-            // フォームをリセット
-            contactForm.reset();
-            
-            console.log('お問い合わせデータ:', data);
-        });
+        contactForm.addEventListener('submit', handleContactFormSubmit);
     }
     
     // ESCキーでモーダルを閉じる
@@ -989,9 +975,7 @@ function setupEventListeners() {
             }
             // 決済ページに移動
             closeCartModal();
-            switchPage('checkout');
-            // 決済サマリーを更新
-            updateCheckoutSummary();
+            window.location.href = 'checkout.html';
         });
     }
     
@@ -1495,4 +1479,116 @@ function formatCurrency(amount) {
 console.log('%c🛒 CID OC Shop へようこそ！', 'color: #000; font-size: 20px; font-weight: bold;');
 console.log('%c開発者の方へ: このサイトはモダンなJavaScriptで構築されています。', 'color: #666; font-size: 14px;');
 console.log('%cコードを見ていただきありがとうございます！ 😊', 'color: #999; font-size: 12px;');
+
+// ============================================
+// ページ固有の初期化機能
+// ============================================
+
+/**
+ * ページ固有の機能を初期化する関数
+ * 
+ * 機能：
+ * - 現在のページに応じて必要な機能のみを初期化
+ * - 各ページで適切な機能が動作するように制御
+ * 
+ * 処理フロー：
+ * 1. 現在のページを判定
+ * 2. ページに応じた機能を初期化
+ */
+function initializePageSpecificFeatures() {
+    // 現在のページを判定
+    const currentPath = window.location.pathname;
+    const currentPage = currentPath.split('/').pop() || 'index.html';
+    
+    // 商品一覧ページの場合
+    if (currentPage === 'products.html') {
+        initializeProductsPage();
+    }
+    
+    // 注文履歴ページの場合
+    if (currentPage === 'orders.html') {
+        initializeOrdersPage();
+    }
+    
+    // 決済ページの場合
+    if (currentPage === 'checkout.html') {
+        initializeCheckoutPage();
+    }
+    
+    // お問い合わせページの場合
+    if (currentPage === 'contact.html') {
+        initializeContactPage();
+    }
+}
+
+/**
+ * 商品一覧ページの初期化
+ */
+function initializeProductsPage() {
+    // フィルター機能の初期化
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortFilter = document.getElementById('sortFilter');
+    
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', handleCategoryFilter);
+    }
+    
+    if (sortFilter) {
+        sortFilter.addEventListener('change', handleSortFilter);
+    }
+}
+
+/**
+ * 注文履歴ページの初期化
+ */
+function initializeOrdersPage() {
+    // 注文履歴を表示
+    displayOrderHistory();
+}
+
+/**
+ * 決済ページの初期化
+ */
+function initializeCheckoutPage() {
+    // 決済ステップの初期化
+    updateCheckoutSummary();
+}
+
+/**
+ * お問い合わせページの初期化
+ */
+function initializeContactPage() {
+    // お問い合わせフォームの初期化
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleContactFormSubmit);
+    }
+}
+
+/**
+ * お問い合わせフォームの送信処理
+ */
+function handleContactFormSubmit(e) {
+    e.preventDefault(); // デフォルトの送信を防止
+    
+    const contactForm = e.target;
+    
+    // フォームデータを取得（実際はサーバーに送信）
+    const formData = new FormData(contactForm);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        type: formData.get('type'),
+        message: formData.get('message')
+    };
+    
+    // 送信成功のメッセージを表示
+    alert('お問い合わせを受け付けました。\n担当者より24時間以内にご連絡させていただきます。');
+    
+    // フォームをリセット
+    contactForm.reset();
+    
+    console.log('お問い合わせデータ:', data);
+}
 
