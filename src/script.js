@@ -625,42 +625,46 @@ function updateCartUI() {
     // reduce(): 配列の全要素を処理して単一の値を返す
     // 全商品の数量を合計（例：3種類の商品を2個ずつ = 6）
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = totalItems;
+    if (cartCount) {
+        cartCount.textContent = totalItems;
+    }
     
     // ========== 2. カートアイテムリストを更新 ==========
     // モーダル内の商品リストエリアを取得
     const cartItemsContainer = document.getElementById('cartItems');
     
-    // カートが空の場合
-    if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<div class="cart-empty">カートは空です</div>';
-    } else {
-        // カート内の各商品をHTMLに変換
-        // map(): 配列の各要素を新しい形に変換
-        // join(''): 配列を文字列に結合
-        cartItemsContainer.innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <!-- 商品画像 -->
-                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                <div class="cart-item-info">
-                    <!-- 商品名 -->
-                    <div class="cart-item-name">${item.name}</div>
-                    <!-- 商品価格（toLocaleString()でカンマ区切り） -->
-                    <div class="cart-item-price">¥${item.price.toLocaleString()}</div>
-                    <!-- 数量変更ボタンと削除ボタン -->
-                    <div class="cart-item-actions">
-                        <!-- 数量を減らすボタン -->
-                        <button class="quantity-button" onclick="updateQuantity(${item.id}, -1)">-</button>
-                        <!-- 現在の数量表示 -->
-                        <span class="quantity-display">${item.quantity}</span>
-                        <!-- 数量を増やすボタン -->
-                        <button class="quantity-button" onclick="updateQuantity(${item.id}, 1)">+</button>
-                        <!-- 商品削除ボタン -->
-                        <button class="remove-button" onclick="removeFromCart(${item.id})">削除</button>
+    if (cartItemsContainer) {
+        // カートが空の場合
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = '<div class="cart-empty">カートは空です</div>';
+        } else {
+            // カート内の各商品をHTMLに変換
+            // map(): 配列の各要素を新しい形に変換
+            // join(''): 配列を文字列に結合
+            cartItemsContainer.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <!-- 商品画像 -->
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-info">
+                        <!-- 商品名 -->
+                        <div class="cart-item-name">${item.name}</div>
+                        <!-- 商品価格（toLocaleString()でカンマ区切り） -->
+                        <div class="cart-item-price">¥${item.price.toLocaleString()}</div>
+                        <!-- 数量変更ボタンと削除ボタン -->
+                        <div class="cart-item-actions">
+                            <!-- 数量を減らすボタン -->
+                            <button class="quantity-button" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <!-- 現在の数量表示 -->
+                            <span class="quantity-display">${item.quantity}</span>
+                            <!-- 数量を増やすボタン -->
+                            <button class="quantity-button" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            <!-- 商品削除ボタン -->
+                            <button class="remove-button" onclick="removeFromCart(${item.id})">削除</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `).join('');
+            `).join('');
+        }
     }
     
     // ========== 3. 合計金額を更新 ==========
@@ -668,7 +672,10 @@ function updateCartUI() {
     // 例：¥1000の商品2個 + ¥2000の商品1個 = ¥4000
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     // toLocaleString(): 数値をカンマ区切りの文字列に変換
-    document.getElementById('cartTotal').textContent = `¥${total.toLocaleString()}`;
+    const cartTotal = document.getElementById('cartTotal');
+    if (cartTotal) {
+        cartTotal.textContent = `¥${total.toLocaleString()}`;
+    }
 }
 
 /**
@@ -733,13 +740,45 @@ function loadCartFromStorage() {
 function showAddToCartFeedback() {
     // カートボタンのDOM要素を取得
     const cartButton = document.getElementById('cartButton');
-    // CSSのtransformで1.2倍に拡大
-    cartButton.style.transform = 'scale(1.2)';
-    // 200ミリ秒後に実行される関数を設定
-    setTimeout(() => {
-        // 元のサイズに戻す
-        cartButton.style.transform = 'scale(1)';
-    }, 200); // 200ms = 0.2秒
+    if (cartButton) {
+        // CSSのtransformで1.2倍に拡大
+        cartButton.style.transform = 'scale(1.2)';
+        // 200ミリ秒後に実行される関数を設定
+        setTimeout(() => {
+            // 元のサイズに戻す
+            cartButton.style.transform = 'scale(1)';
+        }, 200); // 200ms = 0.2秒
+    }
+}
+
+/**
+ * ポップアップメニューを開く関数
+ */
+function openMenuPopup() {
+    const menuPopup = document.getElementById('menuPopup');
+    if (menuPopup) {
+        menuPopup.classList.add('active');
+    }
+}
+
+/**
+ * ポップアップメニューを閉じる関数
+ */
+function closeMenuPopup() {
+    const menuPopup = document.getElementById('menuPopup');
+    if (menuPopup) {
+        menuPopup.classList.remove('active');
+    }
+}
+
+/**
+ * ポップアップメニューを開閉する関数
+ */
+function toggleMenuPopup() {
+    const menuPopup = document.getElementById('menuPopup');
+    if (menuPopup) {
+        menuPopup.classList.toggle('active');
+    }
 }
 
 // ============================================
@@ -877,45 +916,68 @@ function updateNavigation(pageName) {
  */
 function setupEventListeners() {
     // カートボタンのクリック
-    document.getElementById('cartButton').addEventListener('click', openCartModal);
+    const cartButton = document.getElementById('cartButton');
+    if (cartButton) {
+        cartButton.addEventListener('click', openCartModal);
+    }
     
     // カートモーダルを閉じる
-    document.getElementById('closeCartButton').addEventListener('click', closeCartModal);
+    const closeCartButton = document.getElementById('closeCartButton');
+    if (closeCartButton) {
+        closeCartButton.addEventListener('click', closeCartModal);
+    }
     
     // 商品詳細モーダルを閉じる
-    document.getElementById('closeProductModal').addEventListener('click', closeProductModal);
+    const closeProductModalBtn = document.getElementById('closeProductModal');
+    if (closeProductModalBtn) {
+        closeProductModalBtn.addEventListener('click', closeProductModal);
+    }
     
     // モーダルの背景をクリックして閉じる
-    document.getElementById('cartModal').addEventListener('click', (e) => {
-        if (e.target.id === 'cartModal') {
-            closeCartModal();
-        }
-    });
+    const cartModal = document.getElementById('cartModal');
+    if (cartModal) {
+        cartModal.addEventListener('click', (e) => {
+            if (e.target.id === 'cartModal') {
+                closeCartModal();
+            }
+        });
+    }
     
-    document.getElementById('productModal').addEventListener('click', (e) => {
-        if (e.target.id === 'productModal') {
-            closeProductModal();
-        }
-    });
+    const productModal = document.getElementById('productModal');
+    if (productModal) {
+        productModal.addEventListener('click', (e) => {
+            if (e.target.id === 'productModal') {
+                closeProductModal();
+            }
+        });
+    }
     
     // カテゴリーフィルター
-    document.getElementById('categoryFilter').addEventListener('change', (e) => {
-        filterProducts(e.target.value);
-    });
+    const categoryFilter = document.getElementById('categoryFilter');
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', (e) => {
+            filterProducts(e.target.value);
+        });
+    }
     
     // ソートフィルター
-    document.getElementById('sortFilter').addEventListener('change', (e) => {
-        sortProducts(e.target.value);
-    });
+    const sortFilter = document.getElementById('sortFilter');
+    if (sortFilter) {
+        sortFilter.addEventListener('change', (e) => {
+            sortProducts(e.target.value);
+        });
+    }
     
     // モバイルメニューボタン
     const mobileMenuButton = document.getElementById('mobileMenuButton');
     const navMenu = document.querySelector('.nav-menu');
     
-    mobileMenuButton.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        mobileMenuButton.classList.toggle('active');
-    });
+    if (mobileMenuButton && navMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuButton.classList.toggle('active');
+        });
+    }
     
     // ナビゲーションリンクのクリックイベント
     const navLinks = document.querySelectorAll('.nav-link');
@@ -961,6 +1023,26 @@ function setupEventListeners() {
         if (e.key === 'Escape') {
             closeCartModal();
             closeProductModal();
+            closeMenuPopup();
+        }
+    });
+    
+    // ポップアップメニューの開閉
+    const menuPopupButton = document.getElementById('menuPopupButton');
+    if (menuPopupButton) {
+        menuPopupButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenuPopup();
+        });
+    }
+    
+    // クリックでポップアップメニューを閉じる
+    document.addEventListener('click', (e) => {
+        const menuPopup = document.getElementById('menuPopup');
+        const menuPopupWrapper = document.querySelector('.menu-popup-wrapper');
+        
+        if (menuPopup && menuPopupWrapper && !menuPopupWrapper.contains(e.target)) {
+            closeMenuPopup();
         }
     });
     
@@ -1530,11 +1612,15 @@ function initializeProductsPage() {
     const sortFilter = document.getElementById('sortFilter');
     
     if (categoryFilter) {
-        categoryFilter.addEventListener('change', handleCategoryFilter);
+        categoryFilter.addEventListener('change', (e) => {
+            filterProducts(e.target.value);
+        });
     }
     
     if (sortFilter) {
-        sortFilter.addEventListener('change', handleSortFilter);
+        sortFilter.addEventListener('change', (e) => {
+            sortProducts(e.target.value);
+        });
     }
 }
 

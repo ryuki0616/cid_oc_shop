@@ -60,21 +60,51 @@
                     <li><a href="contact.html" class="nav-link">お問い合わせ</a></li>
                 </ul>
                 
-                <!-- ショッピングカートボタン -->
-                <div class="cart-icon-wrapper">
-                    <!-- カートボタン（クリックでカートモーダルを開く） -->
-                    <button class="cart-button" id="cartButton" aria-label="ショッピングカート">
-                        <!-- カートアイコン（SVG） -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <!-- カートの車輪部分 -->
-                            <circle cx="9" cy="21" r="1"></circle>
-                            <circle cx="20" cy="21" r="1"></circle>
-                            <!-- カートの本体部分 -->
-                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                        </svg>
-                        <!-- カート内商品数を表示（JavaScriptで更新） -->
-                        <span class="cart-count" id="cartCount">0</span>
-                    </button>
+                <!-- 右側のボタングループ -->
+                <div class="header-actions">
+                    <!-- ショッピングカートボタン -->
+                    <div class="cart-icon-wrapper">
+                        <!-- カートボタン（クリックでカートモーダルを開く） -->
+                        <button class="cart-button" id="cartButton" aria-label="ショッピングカート">
+                            <!-- カートアイコン（SVG） -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <!-- カートの車輪部分 -->
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <!-- カートの本体部分 -->
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            <!-- カート内商品数を表示（JavaScriptで更新） -->
+                            <span class="cart-count" id="cartCount">0</span>
+                        </button>
+                    </div>
+                    
+                    <!-- ポップアップメニューボタン -->
+                    <div class="menu-popup-wrapper">
+                        <button class="menu-popup-button" id="menuPopupButton" aria-label="メニュー">
+                            <!-- メニューアイコン（SVG） -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="1"></circle>
+                                <circle cx="19" cy="12" r="1"></circle>
+                                <circle cx="5" cy="12" r="1"></circle>
+                            </svg>
+                        </button>
+                        
+                        <!-- ポップアップメニュー -->
+                        <div class="menu-popup" id="menuPopup">
+                            <ul class="menu-popup-list">
+                                <li><a href="index.html" class="menu-popup-item">ホーム</a></li>
+                                <li><a href="products.html" class="menu-popup-item">商品一覧</a></li>
+                                <li><a href="orders.html" class="menu-popup-item">注文履歴</a></li>
+                                <li><a href="about.html" class="menu-popup-item">ショップについて</a></li>
+                                <li><a href="contact.html" class="menu-popup-item">お問い合わせ</a></li>
+                                <li><hr class="menu-popup-divider"></li>
+                                <li><a href="#" class="menu-popup-item">アカウント設定</a></li>
+                                <li><a href="#" class="menu-popup-item">お気に入り</a></li>
+                                <li><a href="terms.html" class="menu-popup-item">利用規約</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- モバイルメニューボタン（768px以下で表示） -->
